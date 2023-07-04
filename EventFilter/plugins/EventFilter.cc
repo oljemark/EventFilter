@@ -11,7 +11,7 @@
 #include "FWCore/ParameterSet/interface/ParameterSet.h"
 #include "FWCore/Utilities/interface/StreamID.h"
 
-#include "DataFormats/Scalers/interface/L1TriggerScalers.h"
+#include "DataFormats/Scalers/interface/Level1TriggerScalers.h"
 #include "DataFormats/CTPPSReco/interface/CTPPSLocalTrackLite.h"
 #include "DataFormats/CTPPSReco/interface/TotemRPLocalTrack.h"
 
@@ -37,13 +37,13 @@ private:
 
   edm::EDGetTokenT<std::vector<CTPPSLocalTrackLite>> tracksToken_;
   edm::EDGetTokenT<edm::DetSetVector<TotemRPLocalTrack>> tracksToken2_;
-  edm::EDGetTokenT<L1TriggerScalersCollection> l1scToken_;
+  edm::EDGetTokenT<Level1TriggerScalersCollection> l1scToken_;
 
 };
 
 EventFilter::EventFilter(const edm::ParameterSet& iConfig) : tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
 																		  tracksToken2_(consumes<edm::DetSetVector<TotemRPLocalTrack>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks2"))),
-																		  l1scToken_(consumes<L1TriggerScalersCollection>(iConfig.getUntrackedParameter<edm::InputTag>("l1")))
+																		  l1scToken_(consumes<Level1TriggerScalersCollection>(iConfig.getUntrackedParameter<edm::InputTag>("l1")))
 {
 }
 
@@ -78,9 +78,9 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
   }
   for (const auto& l1 : iEvent.get(l1scToken_)) {
      if (! (event_number%1000)) {
-       const auto tr=l1.triggerNumber();
-       const auto ev=l1.eventNumber();
-       cout<<"Processing L1 scalers for event "<<event_number<<", triggerNr/eventNr at L1 are= "<<tr<<" / "<<ev<<endl;
+       const auto tr=l1.gtTriggers();
+       const auto ev=l1.gtEvents();
+       cout<<"Processing Level1 scalers for event "<<event_number<<", triggerNr/eventNr at L1 are= "<<tr<<" / "<<ev<<endl;
      }
   }
 
