@@ -58,6 +58,8 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
   EventNumber_t event_number = iEvent.id().event() ;
   RunNumber_t run_number = iEvent.run() ;
+  int bx = iEvent.bunchCrossing() ;
+  edm::Timestamp tt = iEvent.time() ;
 
   for(const auto& track : iEvent.get(tracksToken_))
   {
@@ -71,7 +73,10 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 		status = true ;	  
 	  }
   }
-  
+  if (! (event_number%4000)) cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
+	  <<", time is: "<<tt.value()<<" (unix seconds: "<<tt.unixTime()<<", microsec: "<<tt.microsecondOffset()
+		  <<")"<<endl;
+
   // if(status) cout << "RP activity saved" << endl ;
   // else
   // cout << "RP no activity" << endl ;
