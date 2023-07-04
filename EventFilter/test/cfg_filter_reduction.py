@@ -29,6 +29,7 @@ process.source = cms.Source("PoolSource",
   dropDescendantsOfDroppedBranches = cms.untracked.bool(False),
   inputCommands = cms.untracked.vstring(
     'drop *',
+	 'keep edmTriggerResults_*_*_*',
 	 'keep TotemTriggerCounters_totemTriggerRawToDigi_*_*',
 	 'keep TotemFEDInfos_totemRPRawToDigi_*_*',
 	 'keep TotemRPDigiedmDetSetVector_totemRPRawToDigi_*_*',
