@@ -2,4 +2,5 @@
 <use name="FWCore/ParameterSet"/>
 <use name="FWCore/PluginManager"/>
 <use name="DataFormats/CTPPSReco"/>
+<use name="DataFormats/Scalers"/>
 <flags EDM_PLUGIN="1"/>
