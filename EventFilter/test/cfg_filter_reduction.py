@@ -17,7 +17,7 @@ process.load('Configuration.StandardSequences.MagneticField_AutoFromDBCurrent_cf
 
 from Configuration.AlCa.GlobalTag import GlobalTag
 # process.GlobalTag.globaltag = "101X_dataRun2_Express_v8"
-process.GlobalTag.globaltag = "101X_dataRun2_Prompt_v11"
+process.GlobalTag.globaltag = "130X_dataRun3_Prompt_Candidate_2023_06_06_21_34_08"
 
 process.content = cms.EDFilter("EventContentFilter")
 
