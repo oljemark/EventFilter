@@ -5,6 +5,10 @@
 #include "FWCore/Framework/interface/Frameworkfwd.h"
 #include "FWCore/Framework/interface/stream/EDFilter.h"
 
+#include "DataFormats/Common/interface/DetSetVectorNew.h"
+#include "DataFormats/CTPPSDetId/interface/TotemT2DetId.h"
+#include "DataFormats/TotemReco/interface/TotemT2Digi.h"
+
 #include "FWCore/Framework/interface/Event.h"
 #include "FWCore/Framework/interface/MakerMacros.h"
 
@@ -38,12 +42,14 @@ private:
   edm::EDGetTokenT<std::vector<CTPPSLocalTrackLite>> tracksToken_;
   edm::EDGetTokenT<edm::DetSetVector<TotemRPLocalTrack>> tracksToken2_;
   edm::EDGetTokenT<Level1TriggerScalersCollection> l1scToken_;
+  const edm::EDGetTokenT<edmNew::DetSetVector<TotemT2Digi>> digiToken_;
 
 };
 
 EventFilter::EventFilter(const edm::ParameterSet& iConfig) : tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
 																		  tracksToken2_(consumes<edm::DetSetVector<TotemRPLocalTrack>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks2"))),
-																		  l1scToken_(consumes<Level1TriggerScalersCollection>(iConfig.getUntrackedParameter<edm::InputTag>("l1")))
+																		  l1scToken_(consumes<Level1TriggerScalersCollection>(iConfig.getUntrackedParameter<edm::InputTag>("l1"))),
+                digiToken_(consumes<edmNew::DetSetVector<TotemT2Digi>>(iConfig.getParameter<edm::InputTag>("digisTag")))
 {
 }
 
@@ -56,6 +62,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
 	bool status = false ;
+	bool T2status = false ;
 
   using namespace edm;
 
@@ -84,15 +91,33 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 //     }
   }
 
-  if (! (event_number%4000)) cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
+  int goodT2digis=0;
+  for (const auto& ds_digis : iEvent.get(digiToken_)) {
+    if (!ds_digis.empty()) {
+      const TotemT2DetId detid(ds_digis.detId());
+      const TotemT2DetId planeId(detid.planeId());
+      for (const auto& digi : ds_digis) {
+        if (digi.hasLE()) { //nonempty T2 digi
+          T2status=true;
+          if (digi.hasTE()) { //good T2 digi
+           goodT2digis++;
+	  }
+	}
+      }
+    }
+  }
+  if (! (event_number%40)) cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
 	  <<", time is: "<<tt.value()<<" (unix seconds: "<<tt.unixTime()<<", microsec: "<<tt.microsecondOffset()
-		  <<")"<<endl;
+		  <<"). T2 digis: "<< (T2status ? "some (LE=on) " : "empty") << ", Good T2 digis (LE,TE=on)="<< goodT2digis <<endl;
 
-  // if(status) cout << "RP activity saved" << endl ;
-  // else
-  // cout << "RP no activity" << endl ;
+  if (! (event_number % 40)) {
+   if (status)
+     cout << "RP activity saved" << endl ;
+   else
+     cout << "RP no activity" << endl ;
+  }
 
-  return status;
+  return T2status;
 }
 
 void EventFilter::beginStream(edm::StreamID)

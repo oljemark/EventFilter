@@ -70,6 +70,7 @@ process.filter = cms.EDFilter("EventFilter",
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
   tracks2 = cms.untracked.InputTag('totemRPLocalTrackFitter'),
   l1 = cms.untracked.InputTag('scalersRawToDigi'),
+  digisTag = cms.InputTag('totemT2Digis', 'TotemT2'),
   rpPatternTag = cms.InputTag('totemRPUVPatternFinder'),
   outputFileName = cms.string("output.root"),
 )
