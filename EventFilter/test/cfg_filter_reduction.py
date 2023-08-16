@@ -61,7 +61,14 @@ process.source = cms.Source("PoolSource",
 	 'keep recoForwardProtons_ctppsProtons_*_*',
   ),
   fileNames = cms.untracked.vstring(
-"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/dbd5bb7f-2ab6-4613-aedc-c671ba4f467d.root",
+#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/dbd5bb7f-2ab6-4613-aedc-c671ba4f467d.root",
+#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/587/00000/7f81f91f-8310-46fe-ae40-fb2f7bf7536a.root",
+#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/590/00000/9a4aff00-b95f-46ae-8428-9e8374cea38a.root",
+#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/591/00000/29fc5a6a-26da-4ea0-afe8-e9446fcdd3c0.root",
+#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/593/00000/5b56badf-5da5-4ec1-9624-4e1144cd2db0.root",
+#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/594/00000/74f9570f-22d5-40c6-93e3-191d9444804a.root",
+#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/595/00000/0ff94c29-6990-4c3d-ab30-7f3fe0e7f8b0.root",
+"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/596/00000/01421d38-b975-472a-9cc0-5d0fa9855140.root"
 )
 )
 
