@@ -68,7 +68,10 @@ process.source = cms.Source("PoolSource",
 #"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/593/00000/5b56badf-5da5-4ec1-9624-4e1144cd2db0.root",
 #"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/594/00000/74f9570f-22d5-40c6-93e3-191d9444804a.root",
 #"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/595/00000/0ff94c29-6990-4c3d-ab30-7f3fe0e7f8b0.root",
-"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/596/00000/01421d38-b975-472a-9cc0-5d0fa9855140.root"
+#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/596/00000/01421d38-b975-472a-9cc0-5d0fa9855140.root",
+#"/store/data/Run2023C/SpecialRandom0/AOD/PromptReco-v4/000/369/592/00000/4a1f73aa-061d-4c7d-898a-0e1c99b9bb1a.root"
+#"/store/data/Run2023C/SpecialRandom0/AOD/PromptReco-v4/000/369/597/00000/6615dd5a-0e6b-4e34-8e1a-7dde70213848.root"
+"/store/data/Run2023C/SpecialRandom0/AOD/PromptReco-v4/000/369/599/00000/1552aa69-70be-46b3-8466-53b32e302b04.root"
 )
 )
 
