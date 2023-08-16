@@ -71,14 +71,14 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
   int bx = iEvent.bunchCrossing() ;
   edm::Timestamp tt = iEvent.time() ;
 
-  for(const auto& track : iEvent.get(tracksToken_))
+  for([[maybe_unused]] const auto& track : iEvent.get(tracksToken_))
   {
 	   status = true ;
   }
 
   for(const auto& track : iEvent.get(tracksToken2_))
   {
-	  for(const auto& track2 : track)
+	  for([[maybe_unused]] const auto& track2 : track)
 	  {
 		status = true ;	  
 	  }
