@@ -77,11 +77,11 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	  }
   }
   for (const auto& l1 : iEvent.get(l1scToken_)) {
-     if (! (event_number%1000)) {
+//     if (! (event_number%1000)) {
        const auto tr=l1.gtTriggers();
        const auto ev=l1.gtEvents();
        cout<<"Processing Level1 scalers for event "<<event_number<<", triggerNr/eventNr at L1 are= "<<tr<<" / "<<ev<<endl;
-     }
+//     }
   }
 
   if (! (event_number%4000)) cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx

@@ -22,7 +22,7 @@ process.GlobalTag.globaltag = "130X_dataRun3_Prompt_Candidate_2023_06_06_21_34_0
 process.content = cms.EDFilter("EventContentFilter")
 
 process.maxEvents = cms.untracked.PSet(
-  input = cms.untracked.int32(-1)
+  input = cms.untracked.int32(50000)
 )
 
 process.source = cms.Source("PoolSource",
