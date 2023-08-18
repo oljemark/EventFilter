@@ -61,7 +61,7 @@ process.source = cms.Source("PoolSource",
 	 'keep recoForwardProtons_ctppsProtons_*_*',
   ),
   fileNames = cms.untracked.vstring(
-#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/dbd5bb7f-2ab6-4613-aedc-c671ba4f467d.root",
+"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/dbd5bb7f-2ab6-4613-aedc-c671ba4f467d.root",
 #"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/587/00000/7f81f91f-8310-46fe-ae40-fb2f7bf7536a.root",
 #"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/590/00000/9a4aff00-b95f-46ae-8428-9e8374cea38a.root",
 #"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/591/00000/29fc5a6a-26da-4ea0-afe8-e9446fcdd3c0.root",
@@ -71,7 +71,7 @@ process.source = cms.Source("PoolSource",
 #"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/596/00000/01421d38-b975-472a-9cc0-5d0fa9855140.root",
 #"/store/data/Run2023C/SpecialRandom0/AOD/PromptReco-v4/000/369/592/00000/4a1f73aa-061d-4c7d-898a-0e1c99b9bb1a.root"
 #"/store/data/Run2023C/SpecialRandom0/AOD/PromptReco-v4/000/369/597/00000/6615dd5a-0e6b-4e34-8e1a-7dde70213848.root"
-"/store/data/Run2023C/SpecialRandom0/AOD/PromptReco-v4/000/369/599/00000/1552aa69-70be-46b3-8466-53b32e302b04.root"
+#"/store/data/Run2023C/SpecialRandom0/AOD/PromptReco-v4/000/369/599/00000/1552aa69-70be-46b3-8466-53b32e302b04.root"
 )
 )
 
@@ -89,7 +89,7 @@ process.path_filter = cms.Path(process.filter)
 
 # output configuration
 process.output = cms.OutputModule("PoolOutputModule",
-  fileName = cms.untracked.string("output_skimming.root"),
+  fileName = cms.untracked.string("output_T2skimming.root"),
 
   SelectEvents = cms.untracked.PSet(
     SelectEvents = cms.vstring('path_filter')

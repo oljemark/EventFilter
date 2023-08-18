@@ -1,5 +1,6 @@
 #include <memory>
 #include <iostream>
+#include <map>
 
 // user include files
 #include "FWCore/Framework/interface/Frameworkfwd.h"
@@ -91,26 +92,44 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 //     }
   }
 
-  int goodT2digis=0;
+  unsigned int goodT2digis=0;
+  std::map<int,int> wedges;
   for (const auto& ds_digis : iEvent.get(digiToken_)) {
     if (!ds_digis.empty()) {
       const TotemT2DetId detid(ds_digis.detId());
       const TotemT2DetId planeId(detid.planeId());
+      const auto pl=detid.plane();
+      const auto ch=detid.channel();
+      const auto odd=(pl % 2);
+      const auto wedge=2*ch + odd;
       for (const auto& digi : ds_digis) {
         if (digi.hasLE()) { //nonempty T2 digi
           T2status=true;
           if (digi.hasTE()) { //good T2 digi
            goodT2digis++;
+	   if (wedges.count(wedge))
+             wedges[wedge]++;
+	   else
+             wedges[wedge]=1;
 	  }
 	}
       }
     }
   }
-  if (! (event_number%40)) cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
+  if (! (event_number%5)) {
+	  cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
 	  <<", time is: "<<tt.value()<<" (unix seconds: "<<tt.unixTime()<<", microsec: "<<tt.microsecondOffset()
-		  <<"). T2 digis: "<< (T2status ? "some (LE=on) " : "empty") << ", Good T2 digis (LE,TE=on)="<< goodT2digis <<endl;
+		  <<"). T2 digis: "<< (T2status ? "some (LE=on) " : "empty") << ", Good T2 digis (LE,TE=on)="
+		  << goodT2digis << ", num wedges active: " << wedges.size() << endl;
+	  cout<< "Active wedges (channel*2 + (plane%2)):";
+	  if (wedges.size()) {
+             for (auto it=wedges.begin() ; it!=wedges.end() ; it++)
+                cout<<" ww" << it->first;
+             cout<<endl;
+	  }
+  }
 
-  if (! (event_number % 40)) {
+  if (! (event_number % 5)) {
    if (status)
      cout << "RP activity saved" << endl ;
    else
