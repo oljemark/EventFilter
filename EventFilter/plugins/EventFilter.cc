@@ -125,7 +125,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
       }
     }
   }
-  if (! (event_number%2)) {
+  if (true) {
 	  cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
 	  <<", time is: "<<tt.value()<<" (unix seconds: "<<tt.unixTime()<<", microsec: "<<tt.microsecondOffset()
 		  <<"). T2 digis: "<< (T2status ? "some (LE=on) " : "empty") << ", Good T2 digis (LE,TE=on)="
