@@ -1,6 +1,7 @@
 #include <memory>
 #include <iostream>
 #include <map>
+#include <bitset>
 
 // user include files
 #include "FWCore/Framework/interface/Frameworkfwd.h"
@@ -67,10 +68,12 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
   using namespace edm;
 
-  EventNumber_t event_number = iEvent.id().event() ;
-  RunNumber_t run_number = iEvent.run() ;
-  int bx = iEvent.bunchCrossing() ;
-  edm::Timestamp tt = iEvent.time() ;
+  const EventNumber_t event_number = iEvent.id().event() ;
+  const RunNumber_t run_number = iEvent.run() ;
+  const int bx = iEvent.bunchCrossing() ;
+  const edm::Timestamp tt = iEvent.time() ;
+  bitset<64> bsGood;
+  bsGood.reset();
 
   for([[maybe_unused]] const auto& track : iEvent.get(tracksToken_))
   {
@@ -102,12 +105,17 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
       const auto pl=detid.plane();
       const auto ch=detid.channel();
       const auto odd=(pl % 2);
+      const auto bsi=(pl-odd)/2;
       const auto wedge=8*arm+2*ch + odd;
       for (const auto& digi : ds_digis) {
         if (digi.hasLE()) { //nonempty T2 digi
           T2status=true;
           if (digi.hasTE()) { //good T2 digi
            goodT2digis++;
+	   bsGood.set(wedge*4+bsi);
+	   if (! (event_number % 5000))
+		   cout<<"Bitset fill ev="<<event_number<<" good digis="<<goodT2digis<<"(plane,wedge,bsindex)=("<<pl<<","
+			   <<wedge<<","<<bsi<<"(L),"<<(wedge*4+bsi)<<"(tot)), bs="<<bsGood.to_string()<<endl;
 	   if (wedges.count(wedge))
              wedges[wedge]++;
 	   else
@@ -126,6 +134,13 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	  if (wedges.size()) {
              for (auto it=wedges.begin() ; it!=wedges.end() ; it++)
                 cout<<" ww" << it->first;
+             cout<<endl;
+	  }
+	  if ((wedges.size()==1)&&(goodT2digis>1)) {
+             const auto ww=(wedges.begin())->first;
+             cout<<"1wedge2digis, test eff: " << ww << ", bs="; // <<bsGood.to_string();
+             for (auto i=4*ww ; i<4*ww+4; i++)
+               cout<<(bsGood.test(i) ? "1" : "0");
              cout<<endl;
 	  }
   }
