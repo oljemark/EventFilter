@@ -134,8 +134,8 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	  if (wedges.size()) {
              for (auto it=wedges.begin() ; it!=wedges.end() ; it++)
                 cout<<" ww" << it->first;
-             cout<<endl;
 	  }
+          cout<<endl;
 	  if ((wedges.size()==1)&&(goodT2digis>1)) {
              const auto ww=(wedges.begin())->first;
              cout<<"1wedge2digis, test eff: " << ww << ", bs="; // <<bsGood.to_string();
