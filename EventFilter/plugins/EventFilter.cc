@@ -126,14 +126,20 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
     }
   }
   if (true) {
+         int mult=0;
 	  cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
 	  <<", time is: "<<tt.value()<<" (unix seconds: "<<tt.unixTime()<<", microsec: "<<tt.microsecondOffset()
 		  <<"). T2 digis: "<< (T2status ? "some (LE=on) " : "empty") << ", Good T2 digis (LE,TE=on)="
 		  << goodT2digis << ", num wedges active: " << wedges.size() << endl;
-	  cout<< "Active wedges (arm*8 + channel*2 + (plane%2)):";
+	  cout<< "Active wedges and multihit wedges (arm*8 + channel*2 + (plane%2)):";
 	  if (wedges.size()) {
-             for (auto it=wedges.begin() ; it!=wedges.end() ; it++)
-                cout<<" ww" << it->first;
+             for (auto it=wedges.begin() ; it!=wedges.end() ; it++) {
+               cout<<" ww" << it->first;
+	       if ((it->second) > 1) {
+                  cout<<"-mm" << it->first;
+		  mult++;
+	       }
+	     }
 	  }
           cout<<endl;
 	  if ((wedges.size()==1)&&(goodT2digis>1)) {
@@ -142,6 +148,12 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
              for (auto i=4*ww ; i<4*ww+4; i++)
                cout<<(bsGood.test(i) ? "1" : "0");
              cout<<endl;
+	  }
+	  if (mult==2) {
+            cout<<"2wedgeMultiHit";
+            for (auto it=wedges.begin() ; it!=wedges.end() ; it++)
+              cout<<",qq" << it->first;
+            cout<<" bs="<<bsGood.to_string()<<endl;
 	  }
   }
 
