@@ -144,7 +144,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
           cout<<endl;
 	  if ((wedges.size()==1)&&(goodT2digis>1)) {
              const auto ww=(wedges.begin())->first;
-             cout<<"1wedge2digis, test eff: " << ww << ", bs="; // <<bsGood.to_string();
+             cout<<"1wedge2digis, test eff: " << ww << ", bs1="; // <<bsGood.to_string();
              for (auto i=4*ww ; i<4*ww+4; i++)
                cout<<(bsGood.test(i) ? "1" : "0");
              cout<<endl;
@@ -152,8 +152,16 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	  if (mult==2) {
             cout<<"2wedgeMultiHit";
             for (auto it=wedges.begin() ; it!=wedges.end() ; it++)
+             if ((it->second)>1)
               cout<<",qq" << it->first;
-            cout<<" bs="<<bsGood.to_string()<<endl;
+            cout<<" bsq="<<bsGood.to_string()<<endl;
+	  }
+	  if ((mult==1)&&(wedges.size() > 1)) {
+            cout<<"1wedgeMultiHit";
+            for (auto it=wedges.begin() ; it!=wedges.end() ; it++)
+             if ((it->second)>1)
+              cout<<",pp" << it->first;
+            cout<<" bsp="<<bsGood.to_string()<<endl;
 	  }
   }
 
