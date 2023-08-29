@@ -97,6 +97,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
   unsigned int goodT2digis=0;
   std::map<int,int> wedges;
+  std::map<int,int> mulWedges;
   for (const auto& ds_digis : iEvent.get(digiToken_)) {
     if (!ds_digis.empty()) {
       const TotemT2DetId detid(ds_digis.detId());
@@ -138,10 +139,26 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	       if ((it->second) > 1) {
                   cout<<"-mm" << it->first;
 		  mult++;
+		  mulWedges[it->first]=1;
 	       }
 	     }
 	  }
           cout<<endl;
+
+	  if (mult>1) {
+            //Look for nearest neighbors to cluster
+	    for (int arm=0; arm<2; arm++) {
+              for (int sec=0; sec<8; sec++) {
+                if (mulWedges.count(8*arm+sec) && mulWedges.count(8*arm+((sec+1)%8))) {
+                  if (mulWedges[8*arm+sec]) {
+                     mulWedges[8*arm+sec]++;
+                     mulWedges[8*arm+((sec+1)%8)]--;
+		  }
+		}
+	      }
+	    }
+	  }
+
 	  if ((wedges.size()==1)&&(goodT2digis>1)) {
              const auto ww=(wedges.begin())->first;
              cout<<"1wedge2digis, test eff: " << ww << ", bs1="; // <<bsGood.to_string();
@@ -155,6 +172,15 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
              if ((it->second)>1)
               cout<<",qq" << it->first;
             cout<<" bsq="<<bsGood.to_string()<<endl;
+	    auto mit=mulWedges.begin();
+	    if ((mit->second)>1)
+              cout<<"1clusterMHit,clcl"<<(mit->first)<<endl;
+	  }
+	  if ((mult>2)&&(mult<5)) {
+            cout<<"MultiHitClustered: mul="<<mult<<" bsmu="<<bsGood.to_string()<<endl;
+            for (auto it=mulWedges.begin() ; it!=mulWedges.end() ; it++)
+              cout<<"mumu"<<(it->first)<<"("<<(it->second)<<")";
+            cout<<endl;
 	  }
 	  if ((mult==1)&&(wedges.size() > 1)) {
             cout<<"1wedgeMultiHit";
