@@ -65,6 +65,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 	bool status = false ;
 	bool T2status = false ;
+	bool T2arm[2] = {false, false} ;
 
   using namespace edm;
 
@@ -111,6 +112,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
       for (const auto& digi : ds_digis) {
         if (digi.hasLE()) { //nonempty T2 digi
           T2status=true;
+	  T2arm[arm]=true;
           if (digi.hasTE()) { //good T2 digi
            goodT2digis++;
 	   bsGood.set(wedge*4+bsi);
@@ -132,6 +134,8 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	  <<", time is: "<<tt.value()<<" (unix seconds: "<<tt.unixTime()<<", microsec: "<<tt.microsecondOffset()
 		  <<"). T2 digis: "<< (T2status ? "some (LE=on) " : "empty") << ", Good T2 digis (LE,TE=on)="
 		  << goodT2digis << ", num wedges active: " << wedges.size() << endl;
+          if (T2status)
+           cout<<"Activity/arm (4-5/5-6): ("<<T2arm[0] <<"/"<<T2arm[1]<<")"<<endl;
 	  cout<< "Active wedges and multihit wedges (arm*8 + channel*2 + (plane%2)):";
 	  if (wedges.size()) {
              for (auto it=wedges.begin() ; it!=wedges.end() ; it++) {
@@ -147,7 +151,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
 	  cout<<"MultiW, multi="<<mult<<" occupancy=";
 	  if (! wedges.size()) {
-             cout<<"00000000";
+             cout<<"00000000|";
              cout<<"00000000";
 	  }
           else {
@@ -156,6 +160,8 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
              cout<<wedges[w];
 	   else
              cout<<"0";
+	   if (w==7)
+             cout<<"|";
 	   }
 	  }
           cout<<endl;
