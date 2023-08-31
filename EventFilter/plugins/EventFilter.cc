@@ -145,6 +145,22 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	  }
           cout<<endl;
 
+	  cout<<"MultiW, multi="<<mult<<" occupancy=";
+	  if (! wedges.size()) {
+             cout<<"00000000";
+             cout<<"00000000";
+	  }
+          else {
+           for (int w=0; w<16; w++) {
+	   if (wedges.count(w))
+             cout<<wedges[w];
+	   else
+             cout<<"0";
+	   }
+	  }
+          cout<<endl;
+
+
 	  if (mult>1) {
             //Look for nearest neighbors to cluster
 	    for (int arm=0; arm<2; arm++) {
