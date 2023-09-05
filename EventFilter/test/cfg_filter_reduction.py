@@ -22,7 +22,7 @@ process.GlobalTag.globaltag = "130X_dataRun3_Prompt_Candidate_2023_06_06_21_34_0
 process.content = cms.EDFilter("EventContentFilter")
 
 process.maxEvents = cms.untracked.PSet(
-  input = cms.untracked.int32(50000)
+  input = cms.untracked.int32(5000)
 )
 
 process.source = cms.Source("PoolSource",
@@ -61,7 +61,7 @@ process.source = cms.Source("PoolSource",
 	 'keep recoForwardProtons_ctppsProtons_*_*',
   ),
   fileNames = cms.untracked.vstring(
-"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/dbd5bb7f-2ab6-4613-aedc-c671ba4f467d.root",
+      "file:/eos/cms/store/express/Run2023E/ExpressPhysics/FEVT/Express-v1/000/372/775/00000/85a01f6c-cad8-4235-8447-50d2347fdc85.root",
 )
 )
 
