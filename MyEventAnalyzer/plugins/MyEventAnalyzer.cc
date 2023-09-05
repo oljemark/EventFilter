@@ -86,7 +86,7 @@ void MyEventAnalyzer::analyze(const edm::Event& iEvent, const edm::EventSetup& i
   
   for(const auto& track : iEvent.get(tracksToken2_))
   {
-    CTPPSDetId rpId(track.detId());
+    TotemRPDetId rpId(track.detId());
     unsigned int rpDecId = (100*rpId.arm()) + (10*rpId.station()) + (1*rpId.rp());
 
     for(const auto& track2 : track)
