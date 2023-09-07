@@ -69,6 +69,8 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	bool RParmC[2] = {false, false} ;
 	bool RParmT[2] = {false, false} ;
 	bool RParmTV[2] = {false, false} ;
+        int rph=-1;
+	int rpv=-1;
 
   using namespace edm;
 
@@ -83,6 +85,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
   {
 	  const CTPPSDetId rp(track.rpId());
 	  RParmC[rp.arm()]=true;
+	  rph=100*rp.arm()+10*rp.station()+rp.rp();
 	  status = true ;
   }
 
@@ -93,6 +96,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 		  const CTPPSDetId rp(track.detId());
 		  RParmT[rp.arm()]=true;
 		  RParmTV[rp.arm()]=track2.isValid();
+		  rpv=100*rp.arm()+10*rp.station()+rp.rp();
 		status = true ;	  
 	  }
   }
@@ -143,8 +147,8 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 		  <<"). T2 digis: "<< (T2status ? "some (LE=on) " : "empty") << ", Good T2 digis (LE,TE=on)="
 		  << goodT2digis << ", num wedges active: " << wedges.size() << endl;
           cout<<"T2Activity/arm (4-5/5-6): ("<<T2arm[0] <<"/"<<T2arm[1]<<")"<<endl;
-          cout<<"RPActivity/arm (4-5/5-6), first TrackLite, then RPLocal, and its validity: [C:"<<RParmC[0] <<"/"<<RParmC[1]<<"|R:"
-		  <<RParmT[0] << "/"<< RParmT[1]<<"|R,V:"<< RParmTV[0]<<"/"<<RParmTV[1] <<"]"<<endl;
+          cout<<"RPActivity/arm (4-5/5-6), first TrackLite, then RPLocal, and its validity: [C:"<<RParmC[0] <<"/"<<RParmC[1]<<",pot="<<rph<<"|R:"
+		  <<RParmT[0] << "/"<< RParmT[1]<<"|R,V:"<< RParmTV[0]<<"/"<<RParmTV[1] <<",potTV="<<rpv<<"]"<<endl;
 	  cout<< "Active wedges and multihit wedges (arm*8 + channel*2 + (plane%2)):";
 
 	  bool T2mArm[2]={false, false};
