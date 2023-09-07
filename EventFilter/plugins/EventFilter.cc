@@ -66,6 +66,9 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	bool status = false ;
 	bool T2status = false ;
 	bool T2arm[2] = {false, false} ;
+	bool RParmC[2] = {false, false} ;
+	bool RParmT[2] = {false, false} ;
+	bool RParmTV[2] = {false, false} ;
 
   using namespace edm;
 
@@ -76,15 +79,20 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
   bitset<64> bsGood;
   bsGood.reset();
 
-  for([[maybe_unused]] const auto& track : iEvent.get(tracksToken_))
+  for(const auto& track : iEvent.get(tracksToken_))
   {
-	   status = true ;
+	  const CTPPSDetId rp(track.rpId());
+	  RParmC[rp.arm()]=true;
+	  status = true ;
   }
 
   for(const auto& track : iEvent.get(tracksToken2_))
   {
-	  for([[maybe_unused]] const auto& track2 : track)
+	  for(const auto& track2 : track)
 	  {
+		  const CTPPSDetId rp(track.detId());
+		  RParmT[rp.arm()]=true;
+		  RParmTV[rp.arm()]=track2.isValid();
 		status = true ;	  
 	  }
   }
@@ -134,13 +142,18 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	  <<", time is: "<<tt.value()<<" (unix seconds: "<<tt.unixTime()<<", microsec: "<<tt.microsecondOffset()
 		  <<"). T2 digis: "<< (T2status ? "some (LE=on) " : "empty") << ", Good T2 digis (LE,TE=on)="
 		  << goodT2digis << ", num wedges active: " << wedges.size() << endl;
-          if (T2status)
-           cout<<"Activity/arm (4-5/5-6): ("<<T2arm[0] <<"/"<<T2arm[1]<<")"<<endl;
+          cout<<"T2Activity/arm (4-5/5-6): ("<<T2arm[0] <<"/"<<T2arm[1]<<")"<<endl;
+          cout<<"RPActivity/arm (4-5/5-6), first TrackLite, then RPLocal, and its validity: [C:"<<RParmC[0] <<"/"<<RParmC[1]<<"|R:"
+		  <<RParmT[0] << "/"<< RParmT[1]<<"|R,V:"<< RParmTV[0]<<"/"<<RParmTV[1] <<"]"<<endl;
 	  cout<< "Active wedges and multihit wedges (arm*8 + channel*2 + (plane%2)):";
+
+	  bool T2mArm[2]={false, false};
+
 	  if (wedges.size()) {
              for (auto it=wedges.begin() ; it!=wedges.end() ; it++) {
                cout<<" ww" << it->first;
 	       if ((it->second) > 1) {
+                  T2mArm[(it->first < 8) ? 0 : 1] = true;
                   cout<<"-mm" << it->first;
 		  mult++;
 		  mulWedges[it->first]=1;
@@ -148,6 +161,8 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	     }
 	  }
           cout<<endl;
+
+          cout<<"T2MultiActivity/arm (4-5/5-6): ("<<T2mArm[0] <<"/"<<T2mArm[1]<<")"<<endl;
 
 	  cout<<"MultiW, multi="<<mult<<" occupancy=";
 	  if (! wedges.size()) {
