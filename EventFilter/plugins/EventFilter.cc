@@ -14,6 +14,7 @@
 #include "DataFormats/Scalers/interface/Level1TriggerScalers.h"
 #include "DataFormats/CTPPSReco/interface/CTPPSLocalTrackLite.h"
 #include "DataFormats/CTPPSReco/interface/TotemRPLocalTrack.h"
+#include "DataFormats/CTPPSDetId/interface/TotemT2DetId.h"
 
 
 //
@@ -55,6 +56,10 @@ EventFilter::~EventFilter()
 bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 {
 
+//	bool RParmT[2] = {false, false} ;
+	bool RParmTV[2] = {false, false} ;
+	std::vector<int> rpv;
+	rpv.clear();
 	bool status = false ;
 
   using namespace edm;
@@ -71,8 +76,12 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 
   for(const auto& track : iEvent.get(tracksToken2_))
   {
-	  for([[maybe_unused]] const auto& track2 : track)
+	  for( const auto& track2 : track)
 	  {
+		  const CTPPSDetId rp(track.detId());
+//		  RParmT[rp.arm()]=true;
+		  RParmTV[rp.arm()]=track2.isValid();
+		  rpv.push_back(100*rp.arm()+10*rp.station()+rp.rp());
 		status = true ;	  
 	  }
   }
@@ -84,13 +93,22 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 //     }
   }
 
-  if (! (event_number%4000)) cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
+  if (true) {
+	  cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
 	  <<", time is: "<<tt.value()<<" (unix seconds: "<<tt.unixTime()<<", microsec: "<<tt.microsecondOffset()
 		  <<")"<<endl;
-
-  // if(status) cout << "RP activity saved" << endl ;
-  // else
-  // cout << "RP no activity" << endl ;
+  }
+  if(status) {
+	  cout << "RP activity saved" << endl ;
+	  cout <<"RP_V tracks in arms ("<<RParmTV[0]<<"/"<<RParmTV[1]<<"), rpv=";
+	  if (!rpv.empty()) {
+		  for (auto it=rpv.begin();it!=rpv.end();it++)
+			  cout<<(*it)<<",";
+	  }
+	  cout<<endl;
+  }
+  else
+   cout << "RP no activity" << endl ;
 
   return status;
 }
