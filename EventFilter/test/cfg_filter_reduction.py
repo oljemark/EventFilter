@@ -22,7 +22,7 @@ process.GlobalTag.globaltag = "130X_dataRun3_Prompt_Candidate_2023_06_06_21_34_0
 process.content = cms.EDFilter("EventContentFilter")
 
 process.maxEvents = cms.untracked.PSet(
-  input = cms.untracked.int32(5000)
+  input = cms.untracked.int32(100000)
 )
 
 process.source = cms.Source("PoolSource",
@@ -61,7 +61,10 @@ process.source = cms.Source("PoolSource",
 	 'keep recoForwardProtons_ctppsProtons_*_*',
   ),
   fileNames = cms.untracked.vstring(
-      "file:/eos/cms/store/express/Run2023E/ExpressPhysics/FEVT/Express-v1/000/372/775/00000/85a01f6c-cad8-4235-8447-50d2347fdc85.root",
+      "/store/express/Run2023E/ExpressPhysics/FEVT/Express-v1/000/373/072/00000/f6d5eb88-219e-4dcf-bebe-a007141ce872.root",
+      "/store/express/Run2023E/ExpressPhysics/FEVT/Express-v1/000/373/072/00000/f4e7a27c-bdd9-4e27-abd4-91fc2367fff0.root",
+      "/store/express/Run2023E/ExpressPhysics/FEVT/Express-v1/000/373/072/00000/f4be2a53-a38c-4ef2-9184-cd398cf0cbe5.root",
+#      "file:/eos/cms/store/express/Run2023E/ExpressPhysics/FEVT/Express-v1/000/372/775/00000/85a01f6c-cad8-4235-8447-50d2347fdc85.root",
 )
 )
 
@@ -78,7 +81,7 @@ process.path_filter = cms.Path(process.filter)
 
 # output configuration
 process.output = cms.OutputModule("PoolOutputModule",
-  fileName = cms.untracked.string("output_skimming.root"),
+  fileName = cms.untracked.string("output_skimmingSep08-r373072.root"),
 
   SelectEvents = cms.untracked.PSet(
     SelectEvents = cms.vstring('path_filter')
