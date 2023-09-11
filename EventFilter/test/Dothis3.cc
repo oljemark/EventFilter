@@ -1,0 +1,30 @@
+{
+TH1D* ThreeOfFour=new TH1D("ThreeOfFour","Wedge occurrence rate (3..4/4);Wedge number;Occurrence among >0 wedge (3/4) events",16,-0.5,15.5);
+//ThreeOfFour.Sumw2();
+ThreeOfFour->Fill(0.,142584.);
+ThreeOfFour->Fill(1,132788.);
+ThreeOfFour->Fill(2,137042.);
+ThreeOfFour->Fill(3,141512.);
+ThreeOfFour->Fill(4,131231.);
+ThreeOfFour->Fill(5,140833.);
+ThreeOfFour->Fill(6,136419.);
+ThreeOfFour->Fill(7,121332.);
+ThreeOfFour->Fill(8,140084.);
+ThreeOfFour->Fill(9,143444.);
+ThreeOfFour->Fill(10,138569.);
+ThreeOfFour->Fill(11,143033.);
+ThreeOfFour->Fill(12,140909.);
+ThreeOfFour->Fill(13,133285.);
+ThreeOfFour->Fill(14,135807.);
+ThreeOfFour->Fill(15,141270.);
+ThreeOfFour->Sumw2(kFALSE);
+ThreeOfFour->Sumw2(kTRUE);
+//ThreeOfFour.SetBinError(1,sqrt(141858.));
+ThreeOfFour->Scale(1./204927.);
+TCanvas MyC;
+gStyle->SetOptStat(0);
+ThreeOfFour->GetYaxis()->SetRangeUser(0.57,0.72);
+ThreeOfFour->Draw();
+MyC.Print("wedgeDistrib-3-of-4-try3.pdf");
+MyC.Print("wedgeDistrib-3-of-4-try3.png");
+}
