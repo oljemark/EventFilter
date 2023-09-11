@@ -219,6 +219,8 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	    if ((mit->second)>1)
               cout<<"1clusterMHit,clcl"<<(mit->first)<<endl;
 	  }
+	  if (mult)
+            cout<<"Multi2/3="<<mult<<"/"<<mult3<<" bsAny="<<bsGood.to_string()<<endl;
 	  if ((mult>2)&&(mult<5)) {
             cout<<"MultiHitClustered: mul="<<mult<<" bsmu="<<bsGood.to_string()<<endl;
             for (auto it=mulWedges.begin() ; it!=mulWedges.end() ; it++)
