@@ -142,6 +142,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
   }
   if (true) {
          int mult=0;
+         int mult3=0;
 	  cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
 	  <<", time is: "<<tt.value()<<" (unix seconds: "<<tt.unixTime()<<", microsec: "<<tt.microsecondOffset()
 		  <<"). T2 digis: "<< (T2status ? "some (LE=on) " : "empty") << ", Good T2 digis (LE,TE=on)="
@@ -162,13 +163,14 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 		  mult++;
 		  mulWedges[it->first]=1;
 	       }
+	       if ((it->second) > 2) mult3++;
 	     }
 	  }
           cout<<endl;
 
           cout<<"T2MultiActivity/arm (4-5/5-6): ("<<T2mArm[0] <<"/"<<T2mArm[1]<<")"<<endl;
 
-	  cout<<"MultiW, multi="<<mult<<" occupancy=";
+	  cout<<"MultiW, multi2/3="<<mult<<"/"<<mult3<<" occupancy=";
 	  if (! wedges.size()) {
              cout<<"00000000|";
              cout<<"00000000";
