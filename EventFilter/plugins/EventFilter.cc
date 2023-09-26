@@ -60,10 +60,10 @@ EventFilter::EventFilter(const edm::ParameterSet& iConfig) : tracksToken_(consum
                 digiToken_(consumes<edmNew::DetSetVector<TotemT2Digi>>(iConfig.getParameter<edm::InputTag>("digisTag")))
 {
 	const double s=0.5*T2_BIN_WIDTH_NS_;
-	noiseLE=TH2D("noiseLE","LE distribution 1/4 in wedge;nT2 channel #;Leading Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
-	multiLE=TH2D("multiLE","LE distribution if >1/4 in wedge;nT2 channel #;Leading Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
-	noiseTE=TH2D("noiseTE","TE distribution 1/4 in wedge;nT2 channel #;Trailing Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
-	multiTE=TH2D("multiTE","TE distribution if >1/4 in wedge;nT2 channel #;Trailing Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
+	noiseLE=TH2D("noiseLE","LE distribution if 1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Leading Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
+	multiLE=TH2D("multiLE","LE distribution if >1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Leading Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
+	noiseTE=TH2D("noiseTE","TE distribution if 1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Trailing Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
+	multiTE=TH2D("multiTE","TE distribution if if >1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Trailing Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
 }
 
 EventFilter::~EventFilter()
@@ -134,14 +134,21 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
       const auto odd=(pl % 2);
       const auto bsi=(pl-odd)/2;
       const auto wedge=8*arm+2*ch + odd;
+      const bool flipCh=((pl==3)&&(ch==1)); //LE & TE bits flipped in both arms
       for (const auto& digi : ds_digis) {
-        if (digi.hasLE()) { //nonempty T2 digi
+        if ((digi.hasLE())||(flipCh&&digi.hasTE())) { //nonempty T2 digi
           T2status=true;
 	  T2arm[arm]=true;
-	  LEdges[wedge*4+bsi]=digi.leadingEdge()*T2_BIN_WIDTH_NS_;
-          if (digi.hasTE()) { //good T2 digi
+	  if (!flipCh)
+	   LEdges[wedge*4+bsi]=digi.leadingEdge()*T2_BIN_WIDTH_NS_;
+	  else
+	   LEdges[wedge*4+bsi]=digi.trailingEdge()*T2_BIN_WIDTH_NS_;
+          if ((digi.hasTE())||(flipCh&&digi.hasLE())) { //good T2 digi
            goodT2digis++;
-	   TEdges[wedge*4+bsi]=digi.trailingEdge()*T2_BIN_WIDTH_NS_;
+	   if (!flipCh)
+	    TEdges[wedge*4+bsi]=digi.trailingEdge()*T2_BIN_WIDTH_NS_;
+	   else
+	    TEdges[wedge*4+bsi]=digi.leadingEdge()*T2_BIN_WIDTH_NS_;
 	   bsGood.set(wedge*4+bsi);
 	   if (! (event_number % 5000))
 		   cout<<"Bitset fill ev="<<event_number<<" good digis="<<goodT2digis<<"(plane,wedge,bsindex)=("<<pl<<","
