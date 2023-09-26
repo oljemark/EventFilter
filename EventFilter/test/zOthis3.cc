@@ -11,7 +11,7 @@ double er3[16]={0.007948652,0.016949456,0.020819412,0.01407033,0.028909062,0.017
  for (int i=0;i<16;i++)
  {
 	 plEff->SetBinContent(4*i+1,pl0[i]);
-	 plEff->SetBinError(4i+1,er0[i]);
+	 plEff->SetBinError(4*i+1,er0[i]);
 	 plEff->SetBinContent(4*i+1+1,pl1[i]);
 	 plEff->SetBinError(4*i+1+1,er1[i]);
 	 plEff->SetBinContent(4*i+1+2,pl2[i]);
