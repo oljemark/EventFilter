@@ -5,6 +5,7 @@
 
 // user include files
 #include <TH2D.h>
+#include <TH1D.h>
 #include <TFile.h>
 
 #include "FWCore/Framework/interface/Frameworkfwd.h"
@@ -52,6 +53,7 @@ private:
   static constexpr double T2_BIN_WIDTH_NS_ = 25. / 4;
   TH2D noiseLE, multiLE, smultiLE;
   TH2D noiseTE, multiTE, smultiTE;
+  TH1D noiseRate;
 };
 
 EventFilter::EventFilter(const edm::ParameterSet& iConfig) : tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
@@ -60,6 +62,7 @@ EventFilter::EventFilter(const edm::ParameterSet& iConfig) : tracksToken_(consum
                 digiToken_(consumes<edmNew::DetSetVector<TotemT2Digi>>(iConfig.getParameter<edm::InputTag>("digisTag")))
 {
 	const double s=0.5*T2_BIN_WIDTH_NS_;
+	noiseRate=TH1D("noiseRate","Rate per channel to be 1/4 in wedge;nT2 channel (4*wedge+pl. in wedge,-1=total events);Events",66,-1.5,64.5);
 	noiseLE=TH2D("noiseLE","LE distribution if 1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Leading Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
 	multiLE=TH2D("multiLE","LE distribution if >1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Leading Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
 	smultiLE=TH2D("fewLE","LE distribution if >1/4 in wedge (up to 5/16 wedges);nT2 channel (4*wedge+pl. in wedge);Leading Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
@@ -141,16 +144,16 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
         if ((digi.hasLE())||(flipCh&&digi.hasTE())) { //nonempty T2 digi
           T2status=true;
 	  T2arm[arm]=true;
-	  if (!flipCh)
-	   LEdges[wedge*4+bsi]=digi.leadingEdge()*T2_BIN_WIDTH_NS_;
-	  else
-	   LEdges[wedge*4+bsi]=digi.trailingEdge()*T2_BIN_WIDTH_NS_;
           if ((digi.hasTE())||(flipCh&&digi.hasLE())) { //good T2 digi
            goodT2digis++;
 	   if (!flipCh)
 	    TEdges[wedge*4+bsi]=digi.trailingEdge()*T2_BIN_WIDTH_NS_;
 	   else
 	    TEdges[wedge*4+bsi]=digi.leadingEdge()*T2_BIN_WIDTH_NS_;
+	   if (!flipCh)
+	    LEdges[wedge*4+bsi]=digi.leadingEdge()*T2_BIN_WIDTH_NS_; //am interested in good T2 digis only
+	   else
+	    LEdges[wedge*4+bsi]=digi.trailingEdge()*T2_BIN_WIDTH_NS_;
 	   bsGood.set(wedge*4+bsi);
 	   if (! (event_number % 5000))
 		   cout<<"Bitset fill ev="<<event_number<<" good digis="<<goodT2digis<<"(plane,wedge,bsindex)=("<<pl<<","
@@ -165,6 +168,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
     }
   }
   if (true) {
+         noiseRate.Fill(-1.);
          int mult=0;
          int mult3=0;
 	  cout<<"Processing event "<<event_number<<" in run "<<run_number<<", bucket "<<bx
@@ -190,8 +194,10 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 		       }
 	       } else {
 		       for (int bi=0;bi<4;bi++) {
-			       if (LEdges.count( w*4+bi))
+			       if (LEdges.count( w*4+bi)) {
 				       noiseLE.Fill(w*4+bi,LEdges[w*4+bi]);
+				       noiseRate.Fill(w*4+bi);
+			       }
 			       if (TEdges.count( w*4+bi))
 				       noiseTE.Fill(w*4+bi,TEdges[w*4+bi]);
 		       }
@@ -306,6 +312,7 @@ void EventFilter::beginStream(edm::StreamID)
 void EventFilter::endStream()
 {
 	TFile f("file:./digiHistosT2.root","RECREATE");
+	noiseRate.Write();
 	noiseLE.Write();
 	noiseTE.Write();
 	multiLE.Write();
