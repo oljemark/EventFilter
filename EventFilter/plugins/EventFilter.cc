@@ -50,8 +50,8 @@ private:
   const edm::EDGetTokenT<edmNew::DetSetVector<TotemT2Digi>> digiToken_;
 
   static constexpr double T2_BIN_WIDTH_NS_ = 25. / 4;
-  TH2D noiseLE, multiLE;
-  TH2D noiseTE, multiTE;
+  TH2D noiseLE, multiLE, smultiLE;
+  TH2D noiseTE, multiTE, smultiTE;
 };
 
 EventFilter::EventFilter(const edm::ParameterSet& iConfig) : tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
@@ -62,8 +62,10 @@ EventFilter::EventFilter(const edm::ParameterSet& iConfig) : tracksToken_(consum
 	const double s=0.5*T2_BIN_WIDTH_NS_;
 	noiseLE=TH2D("noiseLE","LE distribution if 1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Leading Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
 	multiLE=TH2D("multiLE","LE distribution if >1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Leading Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
+	smultiLE=TH2D("fewLE","LE distribution if >1/4 in wedge (up to 5/16 wedges);nT2 channel (4*wedge+pl. in wedge);Leading Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
 	noiseTE=TH2D("noiseTE","TE distribution if 1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Trailing Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
 	multiTE=TH2D("multiTE","TE distribution if if >1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Trailing Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
+	smultiTE=TH2D("fewTE","TE distribution if if >1/4 in wedge (up to 5/16 wedges);nT2 channel (4*wedge+pl. in wedge);Trailing Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
 }
 
 EventFilter::~EventFilter()
@@ -226,6 +228,19 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
           cout<<endl;
 
 
+	  if ((wedges.size())&&mult&&(mult<6)) {
+             for (auto it=wedges.begin() ; it!=wedges.end() ; it++) {
+	       auto w=it->first;
+               if (it->second > 1) {
+                 for (int bi=0;bi<4;bi++) {
+                   if (LEdges.count( w*4+bi))
+                     smultiLE.Fill(w*4+bi,LEdges[w*4+bi]);
+                   if (TEdges.count( w*4+bi))
+                     smultiTE.Fill(w*4+bi,TEdges[w*4+bi]);
+                 }
+	       }
+	     }
+	  }
 	  if (mult>1) {
             //Look for nearest neighbors to cluster
 	    for (int arm=0; arm<2; arm++) {
@@ -295,6 +310,8 @@ void EventFilter::endStream()
 	noiseTE.Write();
 	multiLE.Write();
 	multiTE.Write();
+	smultiLE.Write();
+	smultiTE.Write();
 	f.Close();
 }
 
