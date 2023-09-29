@@ -2,3 +2,4 @@ TotemDoFillHistos2023sep12.cc
 *.txt
 *.txt.gz
 *.root
+*.C

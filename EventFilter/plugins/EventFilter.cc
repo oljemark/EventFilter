@@ -154,6 +154,20 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	    LEdges[wedge*4+bsi]=digi.leadingEdge()*T2_BIN_WIDTH_NS_; //am interested in good T2 digis only
 	   else
 	    LEdges[wedge*4+bsi]=digi.trailingEdge()*T2_BIN_WIDTH_NS_;
+
+	   if (true) {
+             auto le=digi.leadingEdge();
+	     auto te=digi.trailingEdge();
+	     if ((!le)||(!te)) {
+		     cout<<"Zero value edge in good T2 digi: LE/TE="<<le<<"/"<<te<<" in arm "<<arm<<", plane "<<pl<<", wedge "
+			     <<wedge<<", channel "<<ch<<", flipped channel? "<<flipCh<<endl;
+	     }
+	     if (te==le)
+               cout << "Overlapping edges found as both valid! LE=TE=" << le <<" in arm "<<arm<<", plane "<<pl<<", wedge "
+                    <<wedge<<", channel "<<ch<<", flipped channel? "<<flipCh<<endl;
+
+	   }
+
 	   bsGood.set(wedge*4+bsi);
 	   if (! (event_number % 5000))
 		   cout<<"Bitset fill ev="<<event_number<<" good digis="<<goodT2digis<<"(plane,wedge,bsindex)=("<<pl<<","
