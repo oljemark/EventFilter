@@ -2,6 +2,7 @@
 #include <iostream>
 #include <map>
 #include <bitset>
+#include <string>
 
 // user include files
 #include <TH2D.h>
@@ -54,6 +55,7 @@ private:
   TH2D noiseLE, multiLE, smultiLE;
   TH2D noiseTE, multiTE, smultiTE;
   TH1D noiseRate;
+  std::map<int,TH2D> chLEtot;
 };
 
 EventFilter::EventFilter(const edm::ParameterSet& iConfig) : tracksToken_(consumes<std::vector<CTPPSLocalTrackLite>>(iConfig.getUntrackedParameter<edm::InputTag>("tracks"))),
@@ -69,6 +71,22 @@ EventFilter::EventFilter(const edm::ParameterSet& iConfig) : tracksToken_(consum
 	noiseTE=TH2D("noiseTE","TE distribution if 1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Trailing Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
 	multiTE=TH2D("multiTE","TE distribution if if >1/4 in wedge;nT2 channel (4*wedge+pl. in wedge);Trailing Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
 	smultiTE=TH2D("fewTE","TE distribution if if >1/4 in wedge (up to 5/16 wedges);nT2 channel (4*wedge+pl. in wedge);Trailing Edge(ns)",65,-0.5,64.5,33,-25.-s,175.+s);
+        chLEtot.clear();
+	for (int i=0;i<64;i++) {
+         std::string nam,titl;
+	 nam="chLEtot_";
+	 nam.append(std::to_string(i));
+	 titl="LE vs tot for channel ";
+	 titl.append(std::to_string(i));
+	 titl.append(", arm=");
+	 titl.append((i/32) ? "5-6" : "4-5");
+	 titl.append(", plane=");
+	 titl.append(std::to_string((i%32)/4));
+	 titl.append(", ch=");
+	 titl.append(std::to_string(i%4));
+	 titl.append(";Leading Edge (ns);Time over Threshold (ns)");
+	 chLEtot[i]=TH2D(nam.c_str(),titl.c_str(),17,-s,100+s,33,-100.-s,100.+s);
+	}
 }
 
 EventFilter::~EventFilter()
@@ -138,6 +156,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
       const auto ch=detid.channel();
       const auto odd=(pl % 2);
       const auto bsi=(pl-odd)/2;
+      const auto chi=ch+4*pl+32*arm;
       const auto wedge=8*arm+2*ch + odd;
       const bool flipCh=((pl==3)&&(ch==1)); //LE & TE bits flipped in both arms
       for (const auto& digi : ds_digis) {
@@ -154,10 +173,22 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	    LEdges[wedge*4+bsi]=digi.leadingEdge()*T2_BIN_WIDTH_NS_; //am interested in good T2 digis only
 	   else
 	    LEdges[wedge*4+bsi]=digi.trailingEdge()*T2_BIN_WIDTH_NS_;
+           if (true) {
+		   const auto le=digi.leadingEdge();
+		   const auto te=digi.trailingEdge();
+		   const auto lens=(flipCh ? (te *T2_BIN_WIDTH_NS_) : (le *T2_BIN_WIDTH_NS_));
+		   const auto tens=(flipCh ? (le *T2_BIN_WIDTH_NS_) : (te *T2_BIN_WIDTH_NS_));
+                   const auto totns=tens-lens;
+		   if (!chLEtot.count(chi))
+                     cerr<<"LE vs tot map not created for ch="<<chi<<endl;
+		   else
+		     chLEtot[chi].Fill(lens,totns);
+	   }
+
 
 	   if (true) {
-             auto le=digi.leadingEdge();
-	     auto te=digi.trailingEdge();
+             const auto le=digi.leadingEdge();
+	     const auto te=digi.trailingEdge();
 	     if ((!le)||(!te)) {
 		     cout<<"Zero value edge in good T2 digi: LE/TE="<<le<<"/"<<te<<" in arm "<<arm<<", plane "<<pl<<", wedge "
 			     <<wedge<<", channel "<<ch<<", flipped channel? "<<flipCh<<endl;
@@ -333,6 +364,8 @@ void EventFilter::endStream()
 	multiTE.Write();
 	smultiLE.Write();
 	smultiTE.Write();
+	for (const auto& ch: chLEtot)
+          ch.second.Write();
 	f.Close();
 }
 
