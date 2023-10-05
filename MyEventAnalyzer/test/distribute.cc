@@ -19,7 +19,7 @@ using namespace std;
 
 string output_dir = "/afs/cern.ch/work/f/fnemes/main_workspace/2023/13p6_TeV/CMSSW_13_0_7_TOTEM/src/MyEventAnalyzer/MyEventAnalyzer/test/" ; 
 
-main()
+int main()
 {
   ifstream files("/afs/cern.ch/work/f/fnemes/main_workspace/2023/13p6_TeV/CMSSW_13_0_7_TOTEM/src/template/files.txt") ;
   
