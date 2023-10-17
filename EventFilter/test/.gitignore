@@ -6,4 +6,4 @@ TotemDoFillHistos2023sep12.cc
 *.eps
 *_cc.d
 *_cc.so
-*ACLiC_dict_rdict.pcm
+*_ACLiC_*
