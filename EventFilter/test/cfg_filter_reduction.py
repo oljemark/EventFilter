@@ -22,7 +22,7 @@ process.GlobalTag.globaltag = "130X_dataRun3_Prompt_Candidate_2023_06_06_21_34_0
 process.content = cms.EDFilter("EventContentFilter")
 
 process.maxEvents = cms.untracked.PSet(
-  input = cms.untracked.int32(4800000)
+  input = cms.untracked.int32(2800000)
 )
 
 process.source = cms.Source("PoolSource",
@@ -62,21 +62,21 @@ process.source = cms.Source("PoolSource",
   ),
   fileNames = cms.untracked.vstring(
 
-#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/dbd5bb7f-2ab6-4613-aedc-c671ba4f467d.root",
-#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/f281dce7-1339-4658-aeac-f8b9e01608f9.root",
-#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/fcfd8932-e41a-4a2c-8232-db13324fb2bc.root",
-#"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/1f0b83f3-83cf-45e3-95d6-f07db38f1cbb.root",
-#"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/5e295df0-d706-468d-880b-7bc24ae25b39.root",
-#"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/5fae96ca-bf22-47e8-a16b-c007eef50b40.root",
-#"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/b09aa2a4-2cbc-47db-b02b-c5e9284e767d.root",
-#"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/c105ead4-b690-4b37-ae74-5bb99cddeb52.root",
-"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/0f8e5ad6-c307-4276-9b99-fd95640f83ce.root",
-"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/23434de2-1d96-41d0-b5e4-0b6f0fd80622.root",
-"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/5b3f2ab3-f148-4fda-ac24-a0034e1fb7f7.root",
-"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/82e14c5e-2b94-49c9-9fad-1259bca1d2ae.root",
-"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/c7b231d4-e396-4384-969f-e4ec735ae819.root",
-"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/d21c632c-3bfb-4618-917a-4a35d85ae079.root",
-"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/d7171c2e-f906-4a7f-89bd-12ef54efbf0d.root",
+"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/dbd5bb7f-2ab6-4613-aedc-c671ba4f467d.root",
+"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/f281dce7-1339-4658-aeac-f8b9e01608f9.root",
+"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/fcfd8932-e41a-4a2c-8232-db13324fb2bc.root",
+"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/1f0b83f3-83cf-45e3-95d6-f07db38f1cbb.root",
+"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/5e295df0-d706-468d-880b-7bc24ae25b39.root",
+"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/5fae96ca-bf22-47e8-a16b-c007eef50b40.root",
+"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/b09aa2a4-2cbc-47db-b02b-c5e9284e767d.root",
+"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/c105ead4-b690-4b37-ae74-5bb99cddeb52.root",
+#"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/0f8e5ad6-c307-4276-9b99-fd95640f83ce.root",
+#"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/23434de2-1d96-41d0-b5e4-0b6f0fd80622.root",
+#"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/5b3f2ab3-f148-4fda-ac24-a0034e1fb7f7.root",
+#"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/82e14c5e-2b94-49c9-9fad-1259bca1d2ae.root",
+#"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/c7b231d4-e396-4384-969f-e4ec735ae819.root",
+#"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/d21c632c-3bfb-4618-917a-4a35d85ae079.root",
+#"/store/data/Run2023C/ZeroBiasNonColliding/AOD/PromptReco-v4/000/369/585/00000/d7171c2e-f906-4a7f-89bd-12ef54efbf0d.root",
 #"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/587/00000/7f81f91f-8310-46fe-ae40-fb2f7bf7536a.root",
 #"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/590/00000/9a4aff00-b95f-46ae-8428-9e8374cea38a.root",
 #"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/591/00000/29fc5a6a-26da-4ea0-afe8-e9446fcdd3c0.root",
