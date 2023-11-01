@@ -27,7 +27,17 @@ process.maxEvents = cms.untracked.PSet(
 
 process.source = cms.Source("PoolSource",
   dropDescendantsOfDroppedBranches = cms.untracked.bool(False),
-  fileNames = cms.untracked.vstring("/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/596/00000/513a1032-fbc6-48e0-8fc2-226677fec4cd.root",)
+  fileNames = cms.untracked.vstring(
+#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/dbd5bb7f-2ab6-4613-aedc-c671ba4f467d.root",
+"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/f281dce7-1339-4658-aeac-f8b9e01608f9.root",
+#"/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/585/00000/fcfd8932-e41a-4a2c-8232-db13324fb2bc.root",
+#"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/1f0b83f3-83cf-45e3-95d6-f07db38f1cbb.root",
+#"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/5e295df0-d706-468d-880b-7bc24ae25b39.root",
+#"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/5fae96ca-bf22-47e8-a16b-c007eef50b40.root",
+#"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/b09aa2a4-2cbc-47db-b02b-c5e9284e767d.root",
+#"/store/data/Run2023C/ZeroBias10/AOD/PromptReco-v4/000/369/585/00000/c105ead4-b690-4b37-ae74-5bb99cddeb52.root",
+#      "/store/data/Run2023C/ZeroBias11/AOD/PromptReco-v4/000/369/596/00000/513a1032-fbc6-48e0-8fc2-226677fec4cd.root",)
+)
 )
 
 process.analyzer = cms.EDAnalyzer("MyEventAnalyzer",
