@@ -56,19 +56,19 @@ const double er0[16]={0.009836285,0.025470488,0.019178066,0.011702218,0.01366275
 
 TCanvas MyC;
 gStyle->SetOptStat(0);
-Eff24->GetYaxis()->SetRangeUser(0.,1.01);
+Eff24->GetYaxis()->SetRangeUser(0.9,1.01);
 Eff24->Draw();
-MyC.Print("TwoOfFourPlaneEfficiencies-v8noNoiseC.pdf");
-MyC.Print("TwoOfFourPlaneEfficiencies-v8noNoiseC.png");
-MyC.Print("TwoOfFourPlaneEfficiencies-v8noNoiseC.C");
+MyC.Print("TwoOfFourPlaneEfficiencies-v10noNoiseC.pdf");
+MyC.Print("TwoOfFourPlaneEfficiencies-v10noNoiseC.png");
+MyC.Print("TwoOfFourPlaneEfficiencies-v10noNoiseC.C");
 Eff34->GetYaxis()->SetRangeUser(0.,1.01);
 Eff34->Draw();
-MyC.Print("ThreeOfFourPlaneEfficiencies-v8noNoiseC.pdf");
-MyC.Print("ThreeOfFourPlaneEfficiencies-v8noNoiseC.png");
-MyC.Print("ThreeOfFourPlaneEfficiencies-v8noNoiseC.C");
+MyC.Print("ThreeOfFourPlaneEfficiencies-v10noNoiseC.pdf");
+MyC.Print("ThreeOfFourPlaneEfficiencies-v10noNoiseC.png");
+MyC.Print("ThreeOfFourPlaneEfficiencies-v10noNoiseC.C");
 Eff44->GetYaxis()->SetRangeUser(0.,1.01);
 Eff44->Draw();
-MyC.Print("AllFourPlaneEfficiencies-v8noNoiseC.pdf");
-MyC.Print("AllFourPlaneEfficiencies-v8noNoiseC.png");
-MyC.Print("AllFourPlaneEfficiencies-v8noNoiseC.C");
+MyC.Print("AllFourPlaneEfficiencies-v10noNoiseC.pdf");
+MyC.Print("AllFourPlaneEfficiencies-v10noNoiseC.png");
+MyC.Print("AllFourPlaneEfficiencies-v10noNoiseC.C");
 }
