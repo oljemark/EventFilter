@@ -20,15 +20,15 @@
 	xyl2b->GetYaxis()->SetRangeUser(5.,35.);
 	xyl1b->GetYaxis()->SetRangeUser(-35.,-5.);
 	xyl1->Draw("colz");
-	MyC.Print("xNear-yNear-diag1-r585-14p61millionEvt.pdf");
-	MyC.Print("xNear-yNear-diag1-r585-14p61millionEvt.png");
+	MyC.Print("xNear-yNear-diag1-r591-13p39millionEvt.pdf");
+	MyC.Print("xNear-yNear-diag1-r591-13p39millionEvt.png");
 	xyl2->Draw("colz");
-	MyC.Print("xNear-yNear-diag2-r585-14p61millionEvt.pdf");
-	MyC.Print("xNear-yNear-diag2-r585-14p61millionEvt.png");
+	MyC.Print("xNear-yNear-diag2-r591-13p39millionEvt.pdf");
+	MyC.Print("xNear-yNear-diag2-r591-13p39millionEvt.png");
 	xyl1b->Draw("colz");
-	MyC.Print("xNear-yNear-diag1-cut3-r585-14p61millionEvt.pdf");
-	MyC.Print("xNear-yNear-diag1-cut3-r585-14p61millionEvt.png");
+	MyC.Print("xNear-yNear-diag1-cut3-r591-13p39millionEvt.pdf");
+	MyC.Print("xNear-yNear-diag1-cut3-r591-13p39millionEvt.png");
 	xyl2b->Draw("colz");
-	MyC.Print("xNear-yNear-diag2-cut3-r585-14p61millionEvt.pdf");
-	MyC.Print("xNear-yNear-diag2-cut3-r585-14p61millionEvt.png");
+	MyC.Print("xNear-yNear-diag2-cut3-r591-13p39millionEvt.pdf");
+	MyC.Print("xNear-yNear-diag2-cut3-r591-13p39millionEvt.png");
 }
