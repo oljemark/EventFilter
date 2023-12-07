@@ -37,8 +37,8 @@
 	d1p2->Draw("same");
 	d1p3->Draw("same");
 	d1p4->Draw("same");
-	MyC.Print("thetaX-LR-diag1R-r596leg-17p22millionEvt.pdf");
-	MyC.Print("thetaX-LR-diag1R-r596leg-17p22millionEvt.png");
+	MyC.Print("thetaX-LR-diag1R-r585-14p61millionEvt.pdf");
+	MyC.Print("thetaX-LR-diag1R-r585-14p61millionEvt.png");
 	TLegend leg2(0.1,0.65,0.3,0.9);
 	leg2.AddEntry(d2p0,"No cut","lep");
 	leg2.AddEntry(d2p1,"Cut 1","lep");
@@ -51,6 +51,6 @@
 	d2p2->Draw("same");
 	d2p3->Draw("same");
 	d2p4->Draw("same");
-	MyC.Print("thetaX-LR-diag2R-r596leg-17p22millionEvt.pdf");
-	MyC.Print("thetaX-LR-diag2R-r596leg-17p22millionEvt.png");
+	MyC.Print("thetaX-LR-diag2R-r585-14p61millionEvt.pdf");
+	MyC.Print("thetaX-LR-diag2R-r585-14p61millionEvt.png");
 }
