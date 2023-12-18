@@ -1,0 +1,46 @@
+{
+	TFile d1("results_LBRT.root");
+	TFile d2("results_LTRB.root");
+	TCanvas MyC;
+	gPad->SetLogy();
+	gStyle->SetOptFit(1);
+	auto d1p0=d1.Get<TH1F>("theta_x_star_right;1");
+	auto d2p0=d2.Get<TH1F>("theta_x_star_right;1");
+	d1p0->SetTitle("Right-arm #theta_{x} (diagonal LBRT);#theta_{x,right} (#mu rad)");
+	d2p0->SetTitle("Right-arm #theta_{x} (diagonal LTRB);#theta_{x,right} (#mu rad)");
+	d1p0->GetXaxis()->SetRangeUser(200.,380.);
+	d2p0->GetXaxis()->SetRangeUser(10.,200.);
+	auto dFit1=new TF1("fitTwo1","gaus(0)+gaus(3)",200.,380.);
+	auto dFit2=new TF1("fitTwo2","gaus(0)+gaus(3)",10.,200.);
+	dFit1->SetParLimits(0,1.,10000.);
+	dFit1->SetParLimits(3,1.,10000.);
+	dFit1->SetParLimits(1,200.,290.);
+	dFit1->SetParLimits(4,290.,350.);
+	dFit1->SetParLimits(2,3.,50.);
+	dFit1->SetParLimits(5,3.,50.);
+	dFit1->SetParName(0,"Constant 1");
+	dFit1->SetParName(3,"Constant 2");
+	dFit1->SetParName(1,"Mean 1");
+	dFit1->SetParName(4,"Mean 2");
+	dFit1->SetParName(2,"Sigma 1");
+	dFit1->SetParName(5,"Sigma 2");
+
+	dFit2->SetParLimits(0,1.,10000.);
+	dFit2->SetParLimits(3,1.,10000.);
+	dFit2->SetParLimits(1,60.,110.);
+	dFit2->SetParLimits(4,110.,180.);
+	dFit2->SetParLimits(2,3.,50.);
+	dFit2->SetParLimits(5,3.,50.);
+	dFit2->SetParName(0,"Constant 1");
+	dFit2->SetParName(3,"Constant 2");
+	dFit2->SetParName(1,"Mean 1");
+	dFit2->SetParName(4,"Mean 2");
+	dFit2->SetParName(2,"Sigma 1");
+	dFit2->SetParName(5,"Sigma 2");
+	d1p0->Fit("fitTwo1");
+	MyC.Print("thetaX-R-noCuts-2gausFit-diag1-r585-14p61millionEvt.pdf");
+	MyC.Print("thetaX-R-noCuts-2gausFit-diag1-r585-14p61millionEvt.png");
+	d2p0->Fit("fitTwo2");
+	MyC.Print("thetaX-R-noCuts-2gausFit-diag2-r585-14p61millionEvt.pdf");
+	MyC.Print("thetaX-R-noCuts-2gausFit-diag2-r585-14p61millionEvt.png");
+}

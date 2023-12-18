@@ -220,6 +220,7 @@ void book_histograms()
   histosTH1F["proj_2"] = new TH1F("proj_2"  , "projection" , bins_1, -limit_1, limit_1);
   histosTH1F["proj_2_cut3"] = new TH1F("proj_2_cut3"  , "proj_2_cut3" , bins_1, -limit_1, limit_1);
   histosTH1F["proj_3"] = new TH1F("proj_3"  , "projection" , bins_1, -limit_1, limit_1);
+  histosTH1F["theta_x_star_right"] = new TH1F("theta_x_star_right"  , "theta_x_star_right" , 25*bins_1,  -limit_3, limit_3);
   histosTH1F["theta_x_star_left_right_proj"] = new TH1F("theta_x_star_left_right_proj"  , "theta_x_star_left_right_proj" ,bins_1, -limit_4, limit_4);
   histosTH1F["theta_x_star_left_right_cut1_proj"] = new TH1F("theta_x_star_left_right_cut1_proj"  , "theta_x_star_left_right_cut1_proj" ,bins_1, -limit_4, limit_4);
   histosTH1F["theta_x_star_left_right_cut2_proj"] = new TH1F("theta_x_star_left_right_cut2_proj"  , "theta_x_star_left_right_cut2_proj" ,bins_1, -limit_4, limit_4);
@@ -414,6 +415,7 @@ main()
       double theta_x_star_left  = 1000.0 * ((vx_far * x_ln) - (vx_near * x_lf)) / det_x ;
       double theta_x_star_right = 1000.0 * ((vx_far * x_rn) - (vx_near * x_rf)) / det_x ;
 
+      histosTH1F["theta_x_star_right"]->Fill(theta_x_star_right) ;
       histosTH2F["theta_x_star_left_right"]->Fill(theta_x_star_left, theta_x_star_right) ;
       histosTH2F["x_star_left_right"]->Fill(x_star_left, x_star_right) ;
 
