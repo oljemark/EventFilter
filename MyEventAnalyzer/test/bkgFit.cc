@@ -12,12 +12,12 @@
 	d2p0->GetXaxis()->SetRangeUser(10.,200.);
 	auto dFit1=new TF1("fitTwo1","gaus(0)+gaus(3)",250.,310.);
 	auto dFit2=new TF1("fitTwo2","gaus(0)+gaus(3)",10.,200.);
-	dFit1->SetParLimits(0,1.,10000.);
-	dFit1->SetParLimits(3,1.,10000.);
+	dFit1->SetParLimits(0,100.,10000.);
+	dFit1->SetParLimits(3,100.,10000.);
 	dFit1->SetParLimits(1,250.,280.);
 	dFit1->SetParLimits(4,280.,310.);
-	dFit1->SetParLimits(2,4.,10.);
-	dFit1->SetParLimits(5,4.,10.);
+	dFit1->SetParLimits(2,4.,8.);
+	dFit1->SetParLimits(5,4.,8.);
 	dFit1->SetParName(0,"Constant 1");
 	dFit1->SetParName(3,"Constant 2");
 	dFit1->SetParName(1,"Mean 1");
@@ -25,12 +25,12 @@
 	dFit1->SetParName(2,"Sigma 1");
 	dFit1->SetParName(5,"Sigma 2");
 
-	dFit2->SetParLimits(0,1.,10000.);
-	dFit2->SetParLimits(3,1.,10000.);
+	dFit2->SetParLimits(0,200.,10000.);
+	dFit2->SetParLimits(3,100.,10000.);
 	dFit2->SetParLimits(1,60.,110.);
 	dFit2->SetParLimits(4,110.,180.);
-	dFit2->SetParLimits(2,3.,50.);
-	dFit2->SetParLimits(5,3.,50.);
+	dFit2->SetParLimits(2,4.,8.);
+	dFit2->SetParLimits(5,4.,8.);
 	dFit2->SetParName(0,"Constant 1");
 	dFit2->SetParName(3,"Constant 2");
 	dFit2->SetParName(1,"Mean 1");
@@ -38,9 +38,9 @@
 	dFit2->SetParName(2,"Sigma 1");
 	dFit2->SetParName(5,"Sigma 2");
 	d1p0->Fit("fitTwo1");
-	MyC.Print("thetaX-R-noCuts-2gausFit-diag1-r591-13p39millionEvt.pdf");
-	MyC.Print("thetaX-R-noCuts-2gausFit-diag1-r591-13p39millionEvt.png");
+	MyC.Print("thetaX-R-noCuts-2gausFit-diag1-r596-17p22millionEvt.pdf");
+	MyC.Print("thetaX-R-noCuts-2gausFit-diag1-r596-17p22millionEvt.png");
 	d2p0->Fit("fitTwo2");
-	MyC.Print("thetaX-R-noCuts-2gausFit-diag2-r591-13p39millionEvt.pdf");
-	MyC.Print("thetaX-R-noCuts-2gausFit-diag2-r591-13p39millionEvt.png");
+	MyC.Print("thetaX-R-noCuts-2gausFit-diag2-r596-17p22millionEvt.pdf");
+	MyC.Print("thetaX-R-noCuts-2gausFit-diag2-r596-17p22millionEvt.png");
 }
