@@ -240,7 +240,27 @@ void book_histograms()
 
   histosTH2F["x_right_near_y_right_near_cut3"] = new TH2F("x_right_near_y_right_near_cut3", "x_right_near_y_right_near_cut3" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
   histosTH2F["x_right_far_y_right_far_cut3"] = new TH2F("x_right_far_y_right_far_cut3", "x_right_far_y_right_far_cut3" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+
+  histosTH2F["x_right_near_y_right_near_band1"] = new TH2F("x_right_near_y_right_near_band1", "x_right_near_y_right_near_band1" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_far_y_right_far_band1"] = new TH2F("x_right_far_y_right_far_band1", "x_right_far_y_right_far_band1" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_near_y_right_near_band2"] = new TH2F("x_right_near_y_right_near_band2", "x_right_near_y_right_near_band2" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_far_y_right_far_band2"] = new TH2F("x_right_far_y_right_far_band2", "x_right_far_y_right_far_band2" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_near_y_right_near_band_none"] = new TH2F("x_right_near_y_right_near_band_none", "x_right_near_y_right_near_band_none" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_far_y_right_far_band_none"] = new TH2F("x_right_far_y_right_far_band_none", "x_right_far_y_right_far_band_none" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_near_dx_right_band1"] = new TH2F("x_right_near_dx_right_band1"  , "x_right_near_dx_right_band1" ,bins_1, -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_near_dx_right_band2"] = new TH2F("x_right_near_dx_right_band2"  , "x_right_near_dx_right_band2" ,bins_1, -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_near_dx_right_band_none"] = new TH2F("x_right_near_dx_right_band_none"  , "x_right_near_dx_right_band_none" ,bins_1, -limit_1, limit_1, bins_1,  -limit_2, limit_2);
   
+  histosTH2F["x_right_near_y_right_near_band1_cut3"] = new TH2F("x_right_near_y_right_near_band1_cut3", "x_right_near_y_right_near_band1_cut3" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_far_y_right_far_band1_cut3"] = new TH2F("x_right_far_y_right_far_band1_cut3", "x_right_far_y_right_far_band1_cut3" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_near_y_right_near_band2_cut3"] = new TH2F("x_right_near_y_right_near_band2_cut3", "x_right_near_y_right_near_band2_cut3" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_far_y_right_far_band2_cut3"] = new TH2F("x_right_far_y_right_far_band2_cut3", "x_right_far_y_right_far_band2_cut3" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_near_y_right_near_band_none_cut3"] = new TH2F("x_right_near_y_right_near_band_none_cut3", "x_right_near_y_right_near_band_none_cut3" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_far_y_right_far_band_none_cut3"] = new TH2F("x_right_far_y_right_far_band_none_cut3", "x_right_far_y_right_far_band_none_cut3" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_near_dx_right_band1_cut3"] = new TH2F("x_right_near_dx_right_band1_cut3"  , "x_right_near_dx_right_band1_cut3" ,bins_1, -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_near_dx_right_band2_cut3"] = new TH2F("x_right_near_dx_right_band2_cut3"  , "x_right_near_dx_right_band2_cut3" ,bins_1, -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+  histosTH2F["x_right_near_dx_right_band_none_cut3"] = new TH2F("x_right_near_dx_right_band_none_cut3"  , "x_right_near_dx_right_band_none_cut3" ,bins_1, -limit_1, limit_1, bins_1,  -limit_2, limit_2);
+
   histosTH2F["y_left_near_y_right_near"]->GetXaxis()->SetTitle("y_{left,near} (mm)") ;
   histosTH2F["y_left_near_y_right_near"]->GetYaxis()->SetTitle("y_{right,near} (mm)") ;
 
@@ -269,8 +289,8 @@ void end_job()
 
 }
 
-// string diagonal = "LBRT" ;
- string diagonal = "LTRB" ;
+ string diagonal = "LBRT" ;
+// string diagonal = "LTRB" ;
 
 main()
 {
@@ -415,6 +435,27 @@ main()
       double theta_x_star_left  = 1000.0 * ((vx_far * x_ln) - (vx_near * x_lf)) / det_x ;
       double theta_x_star_right = 1000.0 * ((vx_far * x_rn) - (vx_near * x_rf)) / det_x ;
 
+      const bool band1=(((fabs(theta_x_star_right - 101.9) < 7.) && (diagonal.compare("LTRB") == 0)) ||
+		      ((fabs(theta_x_star_right - 276.7) < 6.5) && (diagonal.compare("LBRT") == 0)));
+      const bool band2=(((fabs(theta_x_star_right - 121.9) < 6.) && (diagonal.compare("LTRB") == 0)) ||
+		      ((fabs(theta_x_star_right - 298.1) < 6.) && (diagonal.compare("LBRT") == 0)));
+      const bool nonBand=(!band1)&&(!band2);
+      if (band1) {
+       histosTH2F["x_right_near_y_right_near_band1"]->Fill(x_rn, y_rn) ;
+       histosTH2F["x_right_far_y_right_far_band1"]->Fill(x_rf, y_rf) ;
+       histosTH2F["x_right_near_dx_right_band1"]->Fill(x_rn, dx_right) ;
+      }
+      if (band2) {
+       histosTH2F["x_right_near_y_right_near_band2"]->Fill(x_rn, y_rn) ;
+       histosTH2F["x_right_far_y_right_far_band2"]->Fill(x_rf, y_rf) ;
+       histosTH2F["x_right_near_dx_right_band2"]->Fill(x_rn, dx_right) ;
+      }
+      if (nonBand) {
+       histosTH2F["x_right_near_y_right_near_band_none"]->Fill(x_rn, y_rn) ;
+       histosTH2F["x_right_far_y_right_far_band_none"]->Fill(x_rf, y_rf) ;
+       histosTH2F["x_right_near_dx_right_band_none"]->Fill(x_rn, dx_right) ;
+      }
+
       histosTH1F["theta_x_star_right"]->Fill(theta_x_star_right) ;
       histosTH2F["theta_x_star_left_right"]->Fill(theta_x_star_left, theta_x_star_right) ;
       histosTH2F["x_star_left_right"]->Fill(x_star_left, x_star_right) ;
@@ -473,7 +514,21 @@ main()
           if(fabs(proj_2) < (3 * sigma_3) && (fabs(proj_2_2) < cut2_2_sigma))
           {
             histosTH1F["proj_2_cut3"]->Fill(proj_2) ;
-
+            if (band1) {
+             histosTH2F["x_right_near_y_right_near_band1_cut3"]->Fill(x_rn, y_rn) ;
+             histosTH2F["x_right_far_y_right_far_band1_cut3"]->Fill(x_rf, y_rf) ;
+             histosTH2F["x_right_near_dx_right_band1_cut3"]->Fill(x_rn, dx_right) ;
+            }
+            if (band2) {
+             histosTH2F["x_right_near_y_right_near_band2_cut3"]->Fill(x_rn, y_rn) ;
+             histosTH2F["x_right_far_y_right_far_band2_cut3"]->Fill(x_rf, y_rf) ;
+             histosTH2F["x_right_near_dx_right_band2_cut3"]->Fill(x_rn, dx_right) ;
+            }
+            if (nonBand) {
+             histosTH2F["x_right_near_y_right_near_band_none_cut3"]->Fill(x_rn, y_rn) ;
+             histosTH2F["x_right_far_y_right_far_band_none_cut3"]->Fill(x_rf, y_rf) ;
+             histosTH2F["x_right_near_dx_right_band_none_cut3"]->Fill(x_rn, dx_right) ;
+            }
 
             histosTH1F["theta_x_star_left_right_cut3_proj"]->Fill(proj_1) ;
 

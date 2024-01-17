@@ -1,0 +1,92 @@
+{
+ TFile f("results_LTRB.root");
+ auto xy1=f.Get<TH2F>("x_right_near_y_right_near_band1;1");
+ auto xy2=f.Get<TH2F>("x_right_near_y_right_near_band2;1");
+ auto xy0=f.Get<TH2F>("x_right_near_y_right_near_band_none;1");
+
+ auto xx1=f.Get<TH2F>("x_right_near_dx_right_band1;1");
+ auto xx2=f.Get<TH2F>("x_right_near_dx_right_band2;1");
+ auto xx0=f.Get<TH2F>("x_right_near_dx_right_band_none;1");
+
+ auto xy1c=f.Get<TH2F>("x_right_near_y_right_near_band1_cut3;1");
+ auto xy2c=f.Get<TH2F>("x_right_near_y_right_near_band2_cut3;1");
+ auto xy0c=f.Get<TH2F>("x_right_near_y_right_near_band_none_cut3;1");
+
+ auto xx1c=f.Get<TH2F>("x_right_near_dx_right_band1_cut3;1");
+ auto xx2c=f.Get<TH2F>("x_right_near_dx_right_band2_cut3;1");
+ auto xx0c=f.Get<TH2F>("x_right_near_dx_right_band_none_cut3;1");
+ 
+ TCanvas MyC;
+ MyC.Divide(2,2);
+ MyC.cd(1);
+ gPad->SetLogz();
+ xy1->GetXaxis()->SetRangeUser(-15.,15.);
+ xy1->GetYaxis()->SetRangeUser(-30.,-5.);
+ xy1->Draw("colz");
+ MyC.cd(2);
+ gPad->SetLogz();
+ xy2->GetXaxis()->SetRangeUser(-15.,15.);
+ xy2->GetYaxis()->SetRangeUser(-30.,-5.);
+ xy2->Draw("colz");
+ MyC.cd(3);
+ gPad->SetLogz();
+ xy0->GetXaxis()->SetRangeUser(-15.,15.);
+ xy0->GetYaxis()->SetRangeUser(-30.,-5.);
+ xy0->Draw("colz");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-y.pdf");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-y.C");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-y.png");
+ MyC.cd(1);
+ xy1c->GetXaxis()->SetRangeUser(-7.,7.);
+ xy1c->GetYaxis()->SetRangeUser(-30.,-5.);
+ xy1c->Draw("colz");
+ MyC.cd(2);
+ xy2c->GetXaxis()->SetRangeUser(-7.,7.);
+ xy2c->GetYaxis()->SetRangeUser(-30.,-5.);
+ xy2c->Draw("colz");
+ MyC.cd(3);
+ xy0c->GetXaxis()->SetRangeUser(-7.,7.);
+ xy0c->GetYaxis()->SetRangeUser(-30.,-5.);
+ xy0c->Draw("colz");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-y-cut3.pdf");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-y-cut3.png");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-y-cut3.C");
+
+ xx1->GetYaxis()->SetRangeUser(-3.,3.);
+ xx2->GetYaxis()->SetRangeUser(-3.,3.);
+ xx0->GetYaxis()->SetRangeUser(-3.,3.);
+ xx1c->GetYaxis()->SetRangeUser(-3.,3.);
+ xx2c->GetYaxis()->SetRangeUser(-3.,3.);
+ xx0c->GetYaxis()->SetRangeUser(-3.,3.);
+ xx1->GetXaxis()->SetRangeUser(-13.,13.);
+ xx2->GetXaxis()->SetRangeUser(-13.,13.);
+ xx0->GetXaxis()->SetRangeUser(-13.,13.);
+ xx1c->GetXaxis()->SetRangeUser(-13.,13.);
+ xx2c->GetXaxis()->SetRangeUser(-13.,13.);
+ xx0c->GetXaxis()->SetRangeUser(-13.,13.);
+ xx1->GetYaxis()->SetTitle("x far minus near (mm)");
+ xx2->GetYaxis()->SetTitle("x far minus near (mm)");
+ xx0->GetYaxis()->SetTitle("x far minus near (mm)");
+ xx1c->GetYaxis()->SetTitle("x far minus near (mm)");
+ xx2c->GetYaxis()->SetTitle("x far minus near (mm)");
+ xx0c->GetYaxis()->SetTitle("x far minus near (mm)");
+ MyC.cd(1);
+ xx1->Draw("colz");
+ MyC.cd(2);
+ xx2->Draw("colz");
+ MyC.cd(3);
+ xx0->Draw("colz");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-dx.pdf");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-dx.png");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-dx.C");
+
+ MyC.cd(1);
+ xx1c->Draw("colz");
+ MyC.cd(2);
+ xx2c->Draw("colz");
+ MyC.cd(3);
+ xx0c->Draw("colz");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-dx-cut3.pdf");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-dx-cut3.png");
+ MyC.Print("r369585v3-LTRB-bands-x-vs-dx-cut3.C");
+}
