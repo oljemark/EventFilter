@@ -1,5 +1,5 @@
 {
- TFile f("results_LTRB.root");
+ TFile f("results_LBRT.root");
  auto cut1=f.Get<TH1F>("projection;1");
  TCanvas MyC;
  gPad->SetLogy();
@@ -10,9 +10,9 @@
  upr.SetLineColor(kRed);
  lowr.Draw("same");
  upr.Draw("same");
- MyC.Print("r369585v9-LTRB-cuts-projection-cut1.pdf");
- MyC.Print("r369585v9-LTRB-cuts-projection-cut1.png");
- MyC.Print("r369585v9-LTRB-cuts-projection-cut1.C");
+ MyC.Print("r369585v9-LBRT-cuts-projection-cut1.pdf");
+ MyC.Print("r369585v9-LBRT-cuts-projection-cut1.png");
+ MyC.Print("r369585v9-LBRT-cuts-projection-cut1.C");
  auto cut2=f.Get<TH1F>("proj_3;1");
  MyC.Clear();
  gPad->SetLogy();
@@ -20,9 +20,9 @@
  upr2=TLine(4*0.07,0.,4*0.07,10000.);
  upr2.SetLineColor(kRed);
  upr2.Draw("same");
- MyC.Print("r369585v9-LTRB-cuts-cut2-before-cut1-applied.pdf");
- MyC.Print("r369585v9-LTRB-cuts-cut2-before-cut1-applied.png");
- MyC.Print("r369585v9-LTRB-cuts-cut2-before-cut1-applied.C");
+ MyC.Print("r369585v9-LBRT-cuts-cut2-before-cut1-applied.pdf");
+ MyC.Print("r369585v9-LBRT-cuts-cut2-before-cut1-applied.png");
+ MyC.Print("r369585v9-LBRT-cuts-cut2-before-cut1-applied.C");
  auto cut2s=f.Get<TH1F>("proj_3_cut1;1");
  MyC.Clear();
  gPad->SetLogy();
@@ -30,9 +30,9 @@
  upr2s=TLine(4*0.07,0.,4*0.07,10000.);
  upr2s.SetLineColor(kRed);
  upr2s.Draw("same");
- MyC.Print("r369585v9-LTRB-cuts-projection-cut2.pdf");
- MyC.Print("r369585v9-LTRB-cuts-projection-cut2.png");
- MyC.Print("r369585v9-LTRB-cuts-projection-cut2.C");
+ MyC.Print("r369585v9-LBRT-cuts-projection-cut2.pdf");
+ MyC.Print("r369585v9-LBRT-cuts-projection-cut2.png");
+ MyC.Print("r369585v9-LBRT-cuts-projection-cut2.C");
 
  auto cut3s=f.Get<TH1F>("proj_2_cut2;1");
  MyC.Clear();
@@ -44,16 +44,16 @@
  upr3s=TLine(3*0.265397,0.,3*0.265397,10000.);
  upr3s.SetLineColor(kRed);
  upr3s.Draw("same");
- MyC.Print("r369585v9-LTRB-cuts-projection2-cut3.pdf");
- MyC.Print("r369585v9-LTRB-cuts-projection2-cut3.png");
- MyC.Print("r369585v9-LTRB-cuts-projection2-cut3.C");
+ MyC.Print("r369585v9-LBRT-cuts-projection2-cut3.pdf");
+ MyC.Print("r369585v9-LBRT-cuts-projection2-cut3.png");
+ MyC.Print("r369585v9-LBRT-cuts-projection2-cut3.C");
  cut3s->GetXaxis()->SetRangeUser(-3.,3.);
  cut3s->Draw();
  low3s.Draw("same");
  upr3s.Draw("same");
- MyC.Print("r369585v9-LTRB-cuts-projection2-zoom-cut3.pdf");
- MyC.Print("r369585v9-LTRB-cuts-projection2-zoom-cut3.png");
- MyC.Print("r369585v9-LTRB-cuts-projection2-zoom-cut3.C");
+ MyC.Print("r369585v9-LBRT-cuts-projection2-zoom-cut3.pdf");
+ MyC.Print("r369585v9-LBRT-cuts-projection2-zoom-cut3.png");
+ MyC.Print("r369585v9-LBRT-cuts-projection2-zoom-cut3.C");
  
  auto cut3=f.Get<TH1F>("proj_2_2_cut2;1");
  MyC.Clear();
@@ -65,16 +65,16 @@
  upr3=TLine(1.2,0.,1.2,10000.);
  upr3.SetLineColor(kRed);
  upr3.Draw("same");
- MyC.Print("r369585v9-LTRB-cuts-projection2_2-cut3.pdf");
- MyC.Print("r369585v9-LTRB-cuts-projection2_2-cut3.png");
- MyC.Print("r369585v9-LTRB-cuts-projection2_2-cut3.C");
+ MyC.Print("r369585v9-LBRT-cuts-projection2_2-cut3.pdf");
+ MyC.Print("r369585v9-LBRT-cuts-projection2_2-cut3.png");
+ MyC.Print("r369585v9-LBRT-cuts-projection2_2-cut3.C");
  cut3->GetXaxis()->SetRangeUser(-5.,5.);
  cut3->Draw();
  low3.Draw("same");
  upr3.Draw("same");
- MyC.Print("r369585v9-LTRB-cuts-projection2_2-zoom-cut3.pdf");
- MyC.Print("r369585v9-LTRB-cuts-projection2_2-zoom-cut3.png");
- MyC.Print("r369585v9-LTRB-cuts-projection2_2-zoom-cut3.C");
+ MyC.Print("r369585v9-LBRT-cuts-projection2_2-zoom-cut3.pdf");
+ MyC.Print("r369585v9-LBRT-cuts-projection2_2-zoom-cut3.png");
+ MyC.Print("r369585v9-LBRT-cuts-projection2_2-zoom-cut3.C");
 
  auto cut4=f.Get<TH1F>("proj_4_cut3;1");
  MyC.Clear();
@@ -87,7 +87,7 @@
  upr4=TLine(3*0.3,0.,3*0.3,10000.);
  upr4.SetLineColor(kRed);
  upr4.Draw("same");
- MyC.Print("r369585v9-LTRB-cuts-projection4-zoom-cut4.pdf");
- MyC.Print("r369585v9-LTRB-cuts-projection4-zoom-cut4.png");
- MyC.Print("r369585v9-LTRB-cuts-projection4-zoom-cut4.C");
+ MyC.Print("r369585v9-LBRT-cuts-projection4-zoom-cut4.pdf");
+ MyC.Print("r369585v9-LBRT-cuts-projection4-zoom-cut4.png");
+ MyC.Print("r369585v9-LBRT-cuts-projection4-zoom-cut4.C");
 }
