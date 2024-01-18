@@ -118,7 +118,7 @@ double mycut::projection(double x, double y)
 
 void book_histograms()
 {
-  int bins_1 = 100 ;
+  int bins_1 = 600 ;
 
   double limit_1 = 40.0 ;
   double limit_2 = 40.0 ;
@@ -289,8 +289,8 @@ void end_job()
 
 }
 
- string diagonal = "LBRT" ;
-// string diagonal = "LTRB" ;
+// string diagonal = "LBRT" ;
+ string diagonal = "LTRB" ;
 
 main()
 {
