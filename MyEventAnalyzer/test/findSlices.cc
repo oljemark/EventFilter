@@ -33,7 +33,7 @@
  auto xx1c=f.Get<TH2F>("x_right_near_dx_right_band1_cut3;1");
  auto xx2c=f.Get<TH2F>("x_right_near_dx_right_band2_cut3;1");
  auto xx0c=f.Get<TH2F>("x_right_near_dx_right_band_none_cut3;1");
- 
+
  TCanvas MyC;
  MyC.Divide(2,2);
  MyC.cd(1);
