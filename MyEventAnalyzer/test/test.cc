@@ -219,7 +219,10 @@ void book_histograms()
   histosTH1F["projection"] = new TH1F("projection"  , "projection" , bins_1, -limit_1, limit_1);
   histosTH1F["proj_2"] = new TH1F("proj_2"  , "projection" , bins_1, -limit_1, limit_1);
   histosTH1F["proj_2_cut3"] = new TH1F("proj_2_cut3"  , "proj_2_cut3" , bins_1, -limit_1, limit_1);
+  histosTH1F["proj_2_cut2"] = new TH1F("proj_2_cut2"  , "proj_2_cut2" , bins_1, -limit_1, limit_1);
+  histosTH1F["proj_2_2_cut2"] = new TH1F("proj_2_2_cut2"  , "proj_2_2_cut2" , bins_1, -limit_1, limit_1);
   histosTH1F["proj_3"] = new TH1F("proj_3"  , "projection" , bins_1, -limit_1, limit_1);
+  histosTH1F["proj_3_cut1"] = new TH1F("proj_3_cut1"  , "projection" , bins_1, -limit_1, limit_1);
   histosTH1F["theta_x_star_right"] = new TH1F("theta_x_star_right"  , "theta_x_star_right" , 25*bins_1,  -limit_3, limit_3);
   histosTH1F["theta_x_star_left_right_proj"] = new TH1F("theta_x_star_left_right_proj"  , "theta_x_star_left_right_proj" ,bins_1, -limit_4, limit_4);
   histosTH1F["theta_x_star_left_right_cut1_proj"] = new TH1F("theta_x_star_left_right_cut1_proj"  , "theta_x_star_left_right_cut1_proj" ,bins_1, -limit_4, limit_4);
@@ -227,6 +230,7 @@ void book_histograms()
   histosTH1F["theta_x_star_left_right_cut3_proj"] = new TH1F("theta_x_star_left_right_cut3_proj"  , "theta_x_star_left_right_cut3_proj" ,bins_1, -limit_4, limit_4);
   histosTH1F["theta_x_star_left_right_cut4_proj"] = new TH1F("theta_x_star_left_right_cut4_proj"  , "theta_x_star_left_right_cut4_proj" ,bins_1, -limit_4, limit_4);
 
+  histosTH1F["proj_4_cut3"] = new TH1F("proj_4_cut3"  , "proj_4_cut3" , bins_1, -limit_1, limit_1);
   histosTH1F["proj_4_cut4"] = new TH1F("proj_4_cut4"  , "proj_4_cut4" , bins_1, -limit_1, limit_1);
 
   histosTH2F["x_left_near_y_left_near"] = new TH2F("x_left_near_y_left_near", "x_left_near_y_left_near" ,bins_1,  -limit_1, limit_1, bins_1,  -limit_2, limit_2);
@@ -289,8 +293,8 @@ void end_job()
 
 }
 
-// string diagonal = "LBRT" ;
- string diagonal = "LTRB" ;
+ string diagonal = "LBRT" ;
+// string diagonal = "LTRB" ;
 
 main()
 {
@@ -490,6 +494,7 @@ main()
         histosTH2F["theta_x_star_left_right_cut1"]->Fill(theta_x_star_left, theta_x_star_right) ;
         histosTH2F["x_star_left_right_cut1"]->Fill(x_star_left, x_star_right) ;
 
+        histosTH1F["proj_3_cut1"]->Fill(proj_3) ;
         histosTH1F["theta_x_star_left_right_cut1_proj"]->Fill(proj_1) ;
 
         double sigma_3 = 0.07 ;
@@ -505,6 +510,8 @@ main()
           histosTH2F["y_right_near_dy_right_cut2"]->Fill(y_rn, dy_right) ;
 
           histosTH1F["theta_x_star_left_right_cut2_proj"]->Fill(proj_1) ;
+          histosTH1F["proj_2_cut2"]->Fill(proj_2) ;
+          histosTH1F["proj_2_2_cut2"]->Fill(proj_2_2) ;
 
 
 
@@ -532,6 +539,7 @@ main()
             
             histosTH2F["x_left_near_x_right_near_cut3"]->Fill(x_ln, x_rn) ;
             histosTH2F["x_left_far_x_right_far_cut3"]->Fill(x_lf, x_rf) ;
+            histosTH1F["proj_4_cut3"]->Fill(proj_4) ;
 
             if(fabs(proj_4) < (3 * 0.3))
             {
