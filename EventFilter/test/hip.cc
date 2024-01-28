@@ -56,13 +56,13 @@ const double er0[16]={0.014670158,0.036314877,0.019587937,0.013172591,0.01405094
 
 TCanvas MyC;
 gStyle->SetOptStat(0);
-Eff24->GetYaxis()->SetRangeUser(0.9,1.01);
+Eff24->GetYaxis()->SetRangeUser(0.,1.01);
 Eff24->Draw();
-MyC.Print("TwoOfFourPlaneEfficiencies-zoom.pdf");
+MyC.Print("TwoOfFourPlaneEfficiencies-full.pdf");
 Eff34->GetYaxis()->SetRangeUser(0.,1.01);
 Eff34->Draw();
-MyC.Print("ThreeOfFourPlaneEfficiencies-zoom.pdf");
+MyC.Print("ThreeOfFourPlaneEfficiencies-full.pdf");
 Eff44->GetYaxis()->SetRangeUser(0.,1.01);
 Eff44->Draw();
-MyC.Print("AllFourPlaneEfficiencies-zoom.pdf");
+MyC.Print("AllFourPlaneEfficiencies-full.pdf");
 }
