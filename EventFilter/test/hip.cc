@@ -1,7 +1,7 @@
 {
- TH1D* Eff24=new TH1D("Eff24",">=2/4 Plane efficiency (TOTEM preliminary);Wedge number;Efficiency",16,-0.5,15.5);
- TH1D* Eff34=new TH1D("Eff34",">=3/4 Plane efficiency (TOTEM preliminary);Wedge number;Efficiency",16,-0.5,15.5);
- TH1D* Eff44=new TH1D("Eff44","4/4 Plane efficiency (TOTEM preliminary);Wedge number;Efficiency",16,-0.5,15.5);
+ TH1D* Eff24=new TH1D("Eff24",";Wedge number;Efficiency",16,-0.5,15.5);
+ TH1D* Eff34=new TH1D("Eff34",";Wedge number;Efficiency",16,-0.5,15.5);
+ TH1D* Eff44=new TH1D("Eff44",";Wedge number;Efficiency",16,-0.5,15.5);
 const double pl3[16]={0.923943662,0.175347222,0.818181818,0.865030675,0.874145007,0.781055901,0.912547529,0.294656489,0.935828877,0.953383459,0.490467938,0.805642633,0.76744186,0.740554156,0.761811024,0.665749656};
 const double er3[16]={0.010005631,0.015856687,0.016796422,0.013407664,0.01229351,0.01629338,0.017629842,0.017796877,0.012848231,0.008275106,0.020775572,0.015670729,0.017861843,0.021977065,0.018890408,0.017477322};
 const double pl2[16]={0.926553672,0.89380531,0.874493927,0.822157434,0.,0.929759704,0.916030534,0.946078431,0.543478261,0.852150538,0.933993399,0.939670932,0.899371069,0.816666667,0.818181818,0.964143426};
@@ -56,9 +56,24 @@ const double er0[16]={0.014670158,0.036314877,0.019587937,0.013172591,0.01405094
 
 TCanvas MyC;
 gStyle->SetOptStat(0);
+TText tot(14.97,1.02,"TOTEM Preliminary");
+tot.SetTextAlign(31);
+TText too(0.01,1.02,"1 nb^{-1} (13.6 TeV)");
+too.SetTextAlign(11);
+too.SetTextFont(42);
+too.SetTextSize(0.75*too.GetTextSize());
 Eff24->GetYaxis()->SetRangeUser(0.,1.01);
 Eff24->Draw();
-MyC.Print("TwoOfFourPlaneEfficiencies-full.pdf");
+tot.Draw("same");
+too.Draw("same");
+TPad p1=TPad("p1","",0.13,0.15,0.65,0.69);
+//p1.SetFillColor(kRed);
+p1.Draw();
+p1.cd();
+TH1D* cp=(TH1D*) Eff24->DrawCopy();
+cp->SetMinimum(0.9);
+MyC.Print("TwoOfFourPlaneEfficiencies-inset.pdf");
+MyC.Clear();
 Eff34->GetYaxis()->SetRangeUser(0.,1.01);
 Eff34->Draw();
 MyC.Print("ThreeOfFourPlaneEfficiencies-full.pdf");
