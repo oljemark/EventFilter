@@ -293,8 +293,8 @@ void end_job()
 
 }
 
- string diagonal = "LBRT" ;
-// string diagonal = "LTRB" ;
+// string diagonal = "LBRT" ;
+ string diagonal = "LTRB" ;
 
 main()
 {
