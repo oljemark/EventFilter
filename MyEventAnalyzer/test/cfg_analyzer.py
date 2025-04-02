@@ -21,6 +21,16 @@ process.GlobalTag.globaltag = "130X_dataRun3_Prompt_Candidate_2023_06_06_21_34_0
 
 process.content = cms.EDAnalyzer("EventContentAnalyzer")
 
+# load alignment correction
+process.load("CalibPPS.ESProducers.ctppsRPAlignmentCorrectionsDataESSourceXML_cfi")
+process.ctppsRPAlignmentCorrectionsDataESSourceXML.RealFiles = cms.vstring(
+  "TotemAnalysis/MyEventAnalyzer/test/results_120m_2023_45.xml",
+  "TotemAnalysis/MyEventAnalyzer/test/results_120m_2023_56.xml"
+)
+
+process.esPreferLocalAlignment = cms.ESPrefer("CTPPSRPAlignmentCorrectionsDataESSourceXML", "ctppsRPAlignmentCorrectionsDataESSourceXML")
+
+
 process.maxEvents = cms.untracked.PSet(
   input = cms.untracked.int32(2000000)
 )
