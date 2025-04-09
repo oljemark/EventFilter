@@ -38,7 +38,7 @@ process.esPreferLocalAlignment = cms.ESPrefer("CTPPSRPAlignmentCorrectionsDataES
 process.load("RecoPPS.Local.totemRPLocalReconstruction_cff")
 
 process.maxEvents = cms.untracked.PSet(
-  input = cms.untracked.int32(50000)
+  input = cms.untracked.int32(2000000)
 )
 
 process.source = cms.Source("PoolSource",
