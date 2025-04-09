@@ -30,9 +30,11 @@ process.ctppsRPAlignmentCorrectionsDataESSourceXML.RealFiles = cms.vstring(
 
 process.esPreferLocalAlignment = cms.ESPrefer("CTPPSRPAlignmentCorrectionsDataESSourceXML", "ctppsRPAlignmentCorrectionsDataESSourceXML")
 
+#Redo track reconstruction (with these new alignment corrections?)
+process.load("RecoPPS.Local.totemRPLocalReconstruction_cff")
 
 process.maxEvents = cms.untracked.PSet(
-  input = cms.untracked.int32(2000000)
+  input = cms.untracked.int32(50000)
 )
 
 process.source = cms.Source("PoolSource",
@@ -133,6 +135,6 @@ process.analyzer = cms.EDAnalyzer("MyEventAnalyzer",
   outputFileName = cms.string("output_LBRT.root"),
 )
 
-process.p = cms.Path(process.analyzer)
+process.p = cms.Path(process.totemRPLocalTrackFitter * process.analyzer)
 
 
