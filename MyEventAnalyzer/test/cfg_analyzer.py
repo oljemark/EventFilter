@@ -19,7 +19,7 @@ from Configuration.AlCa.GlobalTag import GlobalTag
 # process.GlobalTag.globaltag = "101X_dataRun2_Express_v8"
 process.GlobalTag.globaltag = "130X_dataRun3_Prompt_Candidate_2023_06_06_21_34_08"
 
-process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2022_cfi")
+process.load("Geometry.VeryForwardGeometry.geometryRPFromDD_2023D_cfi")
 
 process.ctppsGeometryESModule.buildMisalignedGeometry = cms.bool(True)
 
