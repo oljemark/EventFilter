@@ -135,8 +135,8 @@ process.analyzer = cms.EDAnalyzer("MyEventAnalyzer",
   tracks = cms.untracked.InputTag('ctppsLocalTrackLiteProducer'),
   tracks2 = cms.untracked.InputTag('totemRPLocalTrackFitter'),
   rpPatternTag = cms.InputTag('totemRPUVPatternFinder'),
-  diagonal = cms.string("LTRB"),
-  outputFileName = cms.string("output_LTRB.root"),
+  diagonal = cms.string("LBRT"),
+  outputFileName = cms.string("output_LBRT.root"),
 )
 
 process.p = cms.Path(process.totemRPLocalTrackFitter * process.analyzer)
