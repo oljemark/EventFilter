@@ -37,8 +37,13 @@ process.esPreferLocalAlignment = cms.ESPrefer("CTPPSRPAlignmentCorrectionsDataES
 #Redo track reconstruction (with these new alignment corrections?)
 process.load("RecoPPS.Local.totemRPLocalReconstruction_cff")
 
+process.load("RecoPPS.Local.ctppsPixelLocalReconstruction_cff")
+
+process.load("RecoPPS.Local.ctppsLocalTrackLiteProducer_cff")
+#from .. import ctppsLocalTrackLiteProducer
+
 process.maxEvents = cms.untracked.PSet(
-  input = cms.untracked.int32(2000000)
+  input = cms.untracked.int32(500000)
 )
 
 process.source = cms.Source("PoolSource",
@@ -139,6 +144,11 @@ process.analyzer = cms.EDAnalyzer("MyEventAnalyzer",
   outputFileName = cms.string("output_LBRT.root"),
 )
 
-process.p = cms.Path(process.totemRPLocalTrackFitter * process.analyzer)
+process.pixrepro = cms.Sequence(process.ctppsPixelLocalReconstructionTask)
+
+process.p = cms.Path(process.totemRPLocalTrackFitter
+        * process.pixrepro
+        * process.ctppsLocalTrackLiteProducer
+        * process.analyzer)
 
 
