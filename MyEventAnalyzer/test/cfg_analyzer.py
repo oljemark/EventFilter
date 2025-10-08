@@ -42,7 +42,7 @@ process.load("RecoPPS.Local.ctppsPixelLocalReconstruction_cff")
 process.load("RecoPPS.Local.ctppsLocalTrackLiteProducer_cff")
 #from .. import ctppsLocalTrackLiteProducer
 
-process.ctppsPixelLocalTracks.tag = cms.InputTag('ctppsPixelRecHitsAlCaRecoProducer')
+process.ctppsPixelLocalTracks.tag = cms.InputTag('ctppsPixelRecHits')
 
 process.maxEvents = cms.untracked.PSet(
   input = cms.untracked.int32(500000)
