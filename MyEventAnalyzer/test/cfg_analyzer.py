@@ -45,6 +45,7 @@ process.load("RecoPPS.Local.ctppsLocalTrackLiteProducer_cff")
 process.ctppsPixelLocalTracks.tag = cms.InputTag('ctppsPixelRecHits')
 
 from CalibPPS.ESProducers.ppsTopology_cff import *
+process.load("CalibPPS.ESProducers.ppsTopology_cff")
 
 process.maxEvents = cms.untracked.PSet(
   input = cms.untracked.int32(500000)
