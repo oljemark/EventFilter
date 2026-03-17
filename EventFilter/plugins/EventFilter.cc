@@ -183,7 +183,7 @@ bool EventFilter::filter(edm::Event& iEvent, const edm::EventSetup& iSetup)
 	   const auto signalCenter=p0[chi]+lens*p1[chi];
 	   const bool sigRegion=(fabs(totns-signalCenter)<2*6.25); //raw signal ToT sigma=0.94 ... 0.98*binning 6.25
 							   // in LE, pre-peak region .LT. 18ns sigma ~ 1.2*6.25
-	   if (true||sigRegion) {
+	   if (sigRegion) {
              goodT2digis++;
   	     if (!flipCh)
 	      TEdges[wedge*4+bsi]=digi.trailingEdge()*T2_BIN_WIDTH_NS_;
